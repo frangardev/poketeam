@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { ChakraBaseProvider, Text } from '@chakra-ui/react'
+// `@chakra-ui/theme` is a part of the base install with `@chakra-ui/react`
+// import chakraTheme from '@chakra-ui/theme'
+
+import { theme } from './resources/theme'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <h1>Hello!!</h1>
-    </div>
+    <ChakraBaseProvider theme={theme}>
+      <Text fontSize='6xl' textAlign={'center'}>Hello!!</Text>
+    </ChakraBaseProvider>
   )
 }
 
