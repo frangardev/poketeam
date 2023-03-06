@@ -1,17 +1,23 @@
 import { ChakraBaseProvider } from "@chakra-ui/react";
 import React from "react";
 import Seach from "./components/Seach";
-import { connect } from "react-redux";
 import { theme } from "./resources/theme";
 import { getPokemons } from "./utils/api";
-import { setPokemons as setPokemonsActions } from "./actions/index.js";
+import { setPokemons } from "./actions/index.js";
+import { useDispatch, useSelector } from "react-redux";
+// import { connect } from "react-redux";
 
-function App({ pokemons, setPokemons }) {
+function App() {
+  const pokemons = useSelector((state: TypeState) => state.pokemons);
+  const dispath = useDispatch();
+
+  // function App({ pokemons, setPokemons }) {
   React.useEffect(() => {
     const fetchPokemons = async () => {
       const pokemonsRes = await getPokemons();
       console.log(pokemonsRes.results);
-      setPokemons(pokemonsRes?.results);
+      // setPokemons(pokemonsRes?.results);
+      dispath(setPokemons(pokemonsRes?.results));
     };
 
     fetchPokemons();
@@ -37,10 +43,13 @@ function App({ pokemons, setPokemons }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  pokemons: state.pokemons,
-});
-const mapDispatchToProps = (dispatch) => ({
-  setPokemons: (value) => dispatch(setPokemonsActions(value)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
+
+// Con conect
+// const mapStateToProps = (state) => ({
+//   pokemons: state.pokemons,
+// });
+// const mapDispatchToProps = (dispatch) => ({
+//   setPokemons: (value) => dispatch(setPokemonsActions(value)),
+// });
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
