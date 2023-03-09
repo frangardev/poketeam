@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/react";
 function Seach() {
   return (
     <Text fontSize="6xl" textAlign={"center"}>
-      Search
+      Pokemon ridux
     </Text>
   );
 }

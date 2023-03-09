@@ -5,7 +5,8 @@ const imagesAPI2 = 'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/othe
 export const getPokemons = async () => {
 	try {
 		const { data } = await axios.get(
-			'https://pokeapi.co/api/v2/pokemon?limit=905'
+			// 'https://pokeapi.co/api/v2/pokemon?limit=905'
+			'https://pokeapi.co/api/v2/pokemon?limit=150'
 		)
 		return data
 	} catch (error) {
