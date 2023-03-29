@@ -9,7 +9,6 @@ function Card({ pokemon, index }) {
   const fetchInfoPokemon = async (urlInfo) => {
     try {
       const { data } = await axios.get(urlInfo);
-      console.log(data.types[0].type.name);
       return data;
     } catch (error) {
       console.error(error);
@@ -20,6 +19,7 @@ function Card({ pokemon, index }) {
     const fetchPokemons = async () => {
       const pokemonsRes = await fetchInfoPokemon(pokemon.url);
       setTypePokemon(pokemonsRes.types[0].type.name);
+      console.log(pokemonsRes.types[0].type.name);
     };
     fetchPokemons();
   }, []);
@@ -97,6 +97,7 @@ function Card({ pokemon, index }) {
       alignItems={"center"}
       borderRadius={"1em"}
       bg={bgColor}
+      h={"10em"}
     >
       <Image
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
