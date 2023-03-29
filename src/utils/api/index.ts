@@ -14,4 +14,11 @@ export const getPokemons = async () => {
 	}
 }
 
-// export default getPokemons
+export const getPokemonDetails = async (urlPokemon:any) => {
+	try {
+		const { data } = await axios.get(urlPokemon)
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}

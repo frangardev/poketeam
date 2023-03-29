@@ -2,30 +2,11 @@ import React from "react";
 import { GridItem, Text, Image } from "@chakra-ui/react";
 import axios from "axios";
 
-function Card({ pokemon, index }) {
+function Card({ pokemon }) {
   const [bgColor, setBgColor] = React.useState("#fff");
-  const [typePokemon, setTypePokemon] = React.useState("");
-
-  const fetchInfoPokemon = async (urlInfo) => {
-    try {
-      const { data } = await axios.get(urlInfo);
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   React.useEffect(() => {
-    const fetchPokemons = async () => {
-      const pokemonsRes = await fetchInfoPokemon(pokemon.url);
-      setTypePokemon(pokemonsRes.types[0].type.name);
-      console.log(pokemonsRes.types[0].type.name);
-    };
-    fetchPokemons();
-  }, []);
-
-  React.useEffect(() => {
-    switch (typePokemon) {
+    switch (pokemon.types[0].type.name) {
       case "grass":
         setBgColor("#62BC5C");
         break;
@@ -87,7 +68,7 @@ function Card({ pokemon, index }) {
       default:
         break;
     }
-  }, [setTypePokemon]);
+  }, []);
 
   return (
     <GridItem
@@ -99,12 +80,7 @@ function Card({ pokemon, index }) {
       bg={bgColor}
       h={"10em"}
     >
-      <Image
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          index + 1
-        }.png`}
-        alt={pokemon.name}
-      />
+      <Image src={pokemon.sprites.front_default} alt={pokemon.name} />
       <Text>{pokemon?.name}</Text>
     </GridItem>
   );

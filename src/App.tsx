@@ -9,22 +9,27 @@ import React from "react";
 import Seach from "./components/Seach";
 import Card from "./components/Card";
 import { theme } from "./resources/theme";
-import { getPokemons } from "./utils/api";
+import { getPokemons, getPokemonDetails } from "./utils/api";
 import { setPokemons } from "./actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 // import { connect } from "react-redux";
 import axios from "axios";
 
 function App() {
-  const pokemons = useSelector((state: TypeState) => state.pokemons);
-  const dispath = useDispatch();
+  const pokemons = useSelector((state) => state.pokemons);
+  const dispatch = useDispatch();
 
-  // function App({ pokemons, setPokemons }) {
   React.useEffect(() => {
     const fetchPokemons = async () => {
       const pokemonsRes = await getPokemons();
-      setPokemons(pokemonsRes?.results);
-      dispath(setPokemons(pokemonsRes?.results));
+      console.log("pokemonsRes: ", pokemonsRes);
+
+      const pokemonsDetailed = await Promise.all(
+        pokemonsRes?.results.map((pokemon) => getPokemonDetails(pokemon.url))
+      );
+      console.log("pokemonsDetailed: ", pokemonsDetailed);
+
+      dispatch(setPokemons(pokemonsDetailed));
     };
 
     fetchPokemons();
@@ -34,10 +39,8 @@ function App() {
     <ChakraBaseProvider theme={theme}>
       <Seach />
       <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-        {pokemons.map((pokemon, index) => {
-          return (
-            <Card key={pokemon?.name} pokemon={pokemon} index={index}></Card>
-          );
+        {pokemons.map((pokemon) => {
+          return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
         })}
       </Grid>
     </ChakraBaseProvider>
