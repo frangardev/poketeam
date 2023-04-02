@@ -7,13 +7,16 @@
 //     }
 //   };
 
+import { SET_POKEMON } from "../actions/types";
+
 export const logger = (store:any) => (next:any) => (action:any)=>{
     console.log(action)
     next(action)
 }
 export const firstLetterToUppercase = (store:any) => (next:any) => (action:any)=>{
-    const updateNamePokemon = action.payload.map((pokemon)=>{
-        const nameUpperCase = pokemon.name.charAt(0).toUpperCase()+pokemon.name.slice(1)
+  if (action.type === SET_POKEMON) {
+    const updateNamePokemon = action?.payload?.map((pokemon)=>{
+        const nameUpperCase = pokemon?.name?.charAt(0).toUpperCase()+pokemon.name.slice(1)
         // console.log(nameUpperCase)
         return {
             ...pokemon,
@@ -27,68 +30,66 @@ export const firstLetterToUppercase = (store:any) => (next:any) => (action:any)=
     }
     
     next(newAction)
+  }else{
+    next(action)
+  }
 }
 
 export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
+  if(action.type === SET_POKEMON ) {
     const addColor = (pokemon)=>{
         let bgColor = '#fff'
-        switch (pokemon.types[0].type.name) {
+        switch (pokemon?.types[0]?.type?.name) {
             case "grass":
-              bgColor="#62BC5C"
+              bgColor="#E3EFC9"
               break;
             case "fire":
-              bgColor="#FF9D52"
+              bgColor="#FDD1B4"
               break;
             case "water":
-              bgColor="#4C91D6"
+              bgColor="#ABCDD9"
               break;
             case "normal":
-              bgColor="#919AA3"
+              bgColor="#ECEBEB"
               break;
             case "poison":
-              bgColor="#AC6BC9"
+              bgColor="#D9B4FD"
               break;
             case "electric":
-              bgColor="#F0D434"
+              bgColor="#FCF8D6"
               break;
             case "ground":
-              bgColor="#D97843"
+              bgColor="#DCD5CD"
               break;
             case "fairy":
-              bgColor="#90AADD"
+              bgColor="#F7B3C0"
               break;
             case "psychic":
-              bgColor="#F9717A"
+              bgColor="#E998C1"
               break;
             case "rock":
-              bgColor="#C8B88C"
+              bgColor="#F0DEC7"
               break;
             case "bug":
-              bgColor="#91C229"
+              bgColor="#DBE7DD"
               break;
             case "fighting":
-              bgColor="#CF3E69"
-              break;
-            case "bug":
-              bgColor="#27a747"
+              bgColor="#E9989D"
               break;
             case "ghost":
-              bgColor="#5269AD"
+              bgColor="#8D8CC4"
               break;
             case "steel":
-              bgColor="#5A8FA1"
+              bgColor="#C7DCDF"
               break;
             case "ice":
-              bgColor="#73D0BE"
+              bgColor="#ABCDD9"
               break;
             case "dark":
-              bgColor="#5B5169"
-              break;
-            case "fairy":
-              bgColor="#ED91E8"
+              bgColor="#727C84"
               break;
             case "dragon":
-              bgColor="#026DC6"
+              bgColor="#99D3DF"
               break;
       
             default:
@@ -110,4 +111,7 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
         payload: newPayload
     }
     next(newAction)
+  }else{
+    next(action)
+  }
 }  
