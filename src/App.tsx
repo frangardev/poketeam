@@ -1,4 +1,4 @@
-import { ChakraBaseProvider, Grid } from "@chakra-ui/react";
+import { ChakraBaseProvider, Grid, Box } from "@chakra-ui/react";
 import React from "react";
 import Seach from "./components/Seach";
 import Card from "./components/Card";
@@ -23,47 +23,33 @@ function App() {
 
   // Dispatch se debe tipar para que no ocurran inconvenientes con lo que devuelve
   const dispatch = useDispatch<Dispatch<any>>();
-  // const dispatch = useDispatch();
 
   React.useEffect(() => {
     const fetchPokemons = async () => {
-      // console.log("loading1 ", loading);
-      // // dispatch(setLoading(true));
-      // const response = await getPokemons();
-      // response && dispatch(getPokemonsWithDetails(response.results));
-      // // console.log(
-      // //   "getPokemonsWithDetails: ",
-      // //   getPokemonsWithDetails(response.results)
-      // // );
-      // dispatch(setLoading(true));
-
       dispatch(setLoading(true));
       const pokemonsRes = await getPokemons();
       dispatch(getPokemonsWithDetails(pokemonsRes.results));
       dispatch(setLoading(false));
     };
     fetchPokemons();
-    console.log("loading2 ", loading);
-  }, [dispatch]);
-
-  React.useEffect(() => {
-    console.log("==============Favorite ", favorite);
   }, [dispatch]);
 
   return (
     <ChakraBaseProvider theme={theme}>
-      <Seach />
-      <h2>Favorite pokemon: {favorite}</h2>
-      {/* <Loader /> */}
-      {!!loading ? (
-        <Loader />
-      ) : (
-        <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-          {pokemons.map((pokemon) => {
-            return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
-          })}
-        </Grid>
-      )}
+      <Box maxW={"1000px"} m={"0 auto"}>
+        <Seach />
+        <h2>Favorite pokemon: {favorite}</h2>
+        {/* <Loader /> */}
+        {!!loading ? (
+          <Loader />
+        ) : (
+          <Grid templateColumns="repeat(auto-fill, minmax(19em, 1fr))" gap={6}>
+            {pokemons.map((pokemon) => {
+              return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
+            })}
+          </Grid>
+        )}
+      </Box>
     </ChakraBaseProvider>
   );
 }

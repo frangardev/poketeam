@@ -31,9 +31,13 @@ function Card({ pokemon }) {
         alignItems={"center"}
         borderRadius={"1em"}
         bg={pokemon?.color}
-        h={"10em"}
+        // h={"10em"}
       >
-        <Image src={pokemon.sprites.front_default} alt={pokemon.name} />
+        <Image
+          src={pokemon.sprites.front_default}
+          alt={pokemon.name}
+          w={"100%"}
+        />
         <Text>{pokemon?.name}</Text>
         {pokemon.name == favorite && <Text>&lt;3</Text>}
       </GridItem>
