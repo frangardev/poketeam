@@ -17,9 +17,9 @@ import axios from "axios";
 import Loader from "./components/Loader";
 
 function App() {
-  const pokemons = useSelector((state: any) => state.pokemons);
-  const loading = useSelector((state: any) => state.loading);
-  let favorite = useSelector((state: any) => state.favorite);
+  const pokemons = useSelector((state: any) => state.get("pokemons")).toJS();
+  const loading = useSelector((state: any) => state.get("loading"));
+  let favorite = useSelector((state: any) => state.get("favorite"));
 
   // Dispatch se debe tipar para que no ocurran inconvenientes con lo que devuelve
   const dispatch = useDispatch<Dispatch<any>>();

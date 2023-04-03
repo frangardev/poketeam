@@ -7,7 +7,7 @@ import { Dispatch } from "redux";
 
 function Card({ pokemon }) {
   const dispatch = useDispatch<Dispatch<any>>();
-  const favorite = useSelector((state: any) => state.favorite);
+  const favorite = useSelector((state: any) => state.get("favorite"));
   // let dispatch: Dispatch<any>;
 
   const updateFavorite = (newPokemonFavorite: string) => {
