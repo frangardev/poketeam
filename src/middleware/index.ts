@@ -47,7 +47,7 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
               bgColor="#FDD1B4"
               break;
             case "water":
-              bgColor="#ABCDD9"
+              bgColor="#D6F5FC"
               break;
             case "normal":
               bgColor="#ECEBEB"
@@ -91,6 +91,9 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
             case "dragon":
               bgColor="#99D3DF"
               break;
+            case 'flying':
+              bgColor="#ABCDD9"
+              break;
       
             default:
               break;
@@ -102,7 +105,7 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
         const color = addColor(poke)
         return{
             ...poke,
-            color: color
+            color: color,
         }
     })
 

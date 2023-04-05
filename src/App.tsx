@@ -1,4 +1,4 @@
-import { ChakraBaseProvider, Grid, Box } from "@chakra-ui/react";
+import { ChakraBaseProvider, Grid, Box, Heading } from "@chakra-ui/react";
 import React from "react";
 import Seach from "./components/Seach";
 import Card from "./components/Card";
@@ -37,8 +37,9 @@ function App() {
   return (
     <ChakraBaseProvider theme={theme}>
       <Box maxW={"1000px"} m={"0 auto"}>
+        <Heading>POKE TEAM</Heading>
         <Seach />
-        <h2>Favorite pokemon: {favorite}</h2>
+        <h3>Favorite pokemon: {favorite}</h3>
         {/* <Loader /> */}
         {!!loading ? (
           <Loader />

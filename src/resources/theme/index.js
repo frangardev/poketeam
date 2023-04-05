@@ -20,5 +20,19 @@ const colors = {
         bankCount: '#686C7B',
     },
 }
+const text = {
+    title: {
+        fontFamily: 'Lexend Deca',
+        fontStyle: 'normal',
+        fontWeight: '600',
+        fontSize: '48px',
+        lineHeight: '60px'
+    }
+}
 
-export const theme = extendTheme({ colors, components: {} })
+export const theme = extendTheme({
+    colors, components: {}, fonts: {
+        heading: `'Lexend Deca', sans-serif`,
+        body: `'Lexend Deca', sans-serif`,
+    },
+})
