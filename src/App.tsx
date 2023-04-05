@@ -10,16 +10,18 @@ import {
   setLoading,
   setPokemons,
 } from "./actions/index.js";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 // import { connect } from "react-redux";
 import axios from "axios";
 import Loader from "./components/Loader";
 
 function App() {
-  const pokemons = useSelector((state: any) => state.get("pokemons")).toJS();
-  const loading = useSelector((state: any) => state.get("loading"));
-  let favorite = useSelector((state: any) => state.get("favorite"));
+  const pokemons = useSelector((state: any) =>
+    state.getIn(["data", "pokemons"], shallowEqual)
+  ).toJS();
+  let favorite = useSelector((state: any) => state.getIn(["data", "favorite"]));
+  const loading = useSelector((state: any) => state.getIn(["ui", "loading"]));
 
   // Dispatch se debe tipar para que no ocurran inconvenientes con lo que devuelve
   const dispatch = useDispatch<Dispatch<any>>();
