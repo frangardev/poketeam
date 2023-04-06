@@ -39,7 +39,7 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
   if(action.type === SET_POKEMON ) {
     const addColor = (pokemon)=>{
         let bgColor = '#fff'
-        switch (pokemon?.types[0]?.type?.name) {
+        switch (pokemon) {
             case "grass":
               bgColor="#E3EFC9"
               break;
@@ -62,10 +62,10 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
               bgColor="#DCD5CD"
               break;
             case "fairy":
-              bgColor="#F7B3C0"
+              bgColor="#F7B3E4"
               break;
             case "psychic":
-              bgColor="#E998C1"
+              bgColor="#F7B3F4"
               break;
             case "rock":
               bgColor="#F0DEC7"
@@ -74,16 +74,16 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
               bgColor="#DBE7DD"
               break;
             case "fighting":
-              bgColor="#E9989D"
+              bgColor="#FCD6D6"
               break;
             case "ghost":
-              bgColor="#8D8CC4"
+              bgColor="#A5A4D6"
               break;
             case "steel":
               bgColor="#C7DCDF"
               break;
             case "ice":
-              bgColor="#ABCDD9"
+              bgColor="#D6EAED"
               break;
             case "dark":
               bgColor="#727C84"
@@ -100,14 +100,20 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
         }
         return bgColor
     } 
-   
-    const newPayload = action.payload.map((poke)=>{
-        const color = addColor(poke)
-        return{
-            ...poke,
-            color: color,
+
+    const newPayload =action.payload.map(poke => {
+      const typeColorsPoke = poke.types.map((type)=>{
+        const color = addColor(type.type.name)
+        return {
+          ...type,
+          color: color
         }
-    })
+      })
+      return {
+        ...poke,
+        types: typeColorsPoke
+      }
+    })    
 
     const newAction = {
         ...action,

@@ -20,7 +20,9 @@ function App() {
   const pokemons = useSelector((state: any) =>
     state.getIn(["data", "pokemons"], shallowEqual)
   ).toJS();
-  let favorite = useSelector((state: any) => state.getIn(["data", "favorite"]));
+  const favorite = useSelector((state: any) =>
+    state.getIn(["data", "favorite"])
+  );
   const loading = useSelector((state: any) => state.getIn(["ui", "loading"]));
 
   // Dispatch se debe tipar para que no ocurran inconvenientes con lo que devuelve

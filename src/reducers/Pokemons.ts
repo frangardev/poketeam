@@ -22,16 +22,19 @@ const initialState = fromJS({
 })
 
 
-export const PokemonReducer=(state=initialState, action:any)=>{
+export const PokemonReducer=(state=initialState, action:any)=>{ 
     switch(action.type){
         case SET_POKEMON:
             // Modificar el estado con desestructuración
             // return{...state,pokemons:action.payload};
             //Modificando el stado com immutable
             return state.setIn(['pokemons'], fromJS(action.payload))
+            break
         case SET_FAVORITE:
             return state.setIn(['favorite'], fromJS(action.payload))
+            break
         default:
             return state;
+            break
     }
 };

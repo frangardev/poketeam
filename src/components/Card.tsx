@@ -10,7 +10,9 @@ import BgCard from "./BgCard";
 
 function Card({ pokemon }) {
   const dispatch = useDispatch<Dispatch<any>>();
-  const favorite = useSelector((state: any) => state.get("favorite"));
+  const favorite = useSelector((state: any) =>
+    state.getIn(["data", "favorite"])
+  );
   // let dispatch: Dispatch<any>;
 
   const updateFavorite = (newPokemonFavorite: string) => {
@@ -34,7 +36,7 @@ function Card({ pokemon }) {
         flexDirection={"column"}
         alignItems={"center"}
         borderRadius={"1em"}
-        bg={pokemon?.color}
+        bg={pokemon?.types[0].color}
         pb={"5%"}
         overflow={"hidden"}
       >
@@ -69,14 +71,14 @@ function Card({ pokemon }) {
             <PokeTypeTag
               key={typePoke.type.name}
               type={typePoke.type.name}
-              color={pokemon.color}
+              color={typePoke.color}
             />
           ))}
         </Flex>
 
         {pokemon.name == favorite && (
           <Box position={"absolute"} right={"5%"} top={"5%"} zIndex={"30"}>
-            <Icon icon="gg:pokemon" width={"33px"} />
+            <Icon icon="gg:pokemon" width={"33px"} color="#545454" />
           </Box>
         )}
         <BgCard type={pokemon.types[0].type.name} />
