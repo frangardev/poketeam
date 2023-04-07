@@ -41,7 +41,9 @@ function App() {
   return (
     <ChakraBaseProvider theme={theme}>
       <Box maxW={"1000px"} m={"0 auto"}>
-        <Heading>POKE TEAM</Heading>
+        <Heading textAlign={"center"} m={"5vh auto 43px"}>
+          POKE TEAM
+        </Heading>
         <Seach />
         <h3>Favorite pokemon: {favorite}</h3>
         {/* <Loader /> */}

@@ -17,9 +17,6 @@ function Card({ pokemon }) {
 
   const updateFavorite = (newPokemonFavorite: string) => {
     dispatch(setFavorite(newPokemonFavorite));
-    // dispatchNew({ type: SET_FAVORITE, payload: newPokemonFavorite });
-
-    console.log("newPokemonFavorite: ", favorite);
   };
 
   return (
@@ -36,7 +33,7 @@ function Card({ pokemon }) {
         flexDirection={"column"}
         alignItems={"center"}
         borderRadius={"1em"}
-        bg={pokemon?.types[0].color}
+        bg={pokemon.types[0].color}
         pb={"5%"}
         overflow={"hidden"}
       >
