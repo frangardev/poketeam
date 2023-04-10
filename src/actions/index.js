@@ -1,5 +1,5 @@
 import { getPokemonDetails } from "../utils/api";
-import { SET_FAVORITE, SET_LOADING, SET_POKEMON } from "./types";
+import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM } from "./types";
 
 // // import { IPokemonDetails, IPokemonType } from "../types";
 // import { Dispatch } from "redux";
@@ -55,6 +55,10 @@ export const setLoading = (payload) => ({
 });
 export const setFavorite = (payload) => ({
   type: SET_FAVORITE,
+  payload,
+});
+export const setTeam = (payload) => ({
+  type: SET_TEAM,
   payload,
 });
 

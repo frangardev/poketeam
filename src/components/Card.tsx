@@ -1,8 +1,8 @@
 import React from "react";
 import { GridItem, Text, Image, Flex, Box } from "@chakra-ui/react";
 import axios from "axios";
-import { setFavorite } from "../actions";
-import { useDispatch, useSelector } from "react-redux";
+import { setFavorite, setTeam } from "../actions";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 import PokeTypeTag from "./PokeTypeTag";
 import { Icon } from "@iconify/react";
@@ -13,17 +13,30 @@ function Card({ pokemon }) {
   const favorite = useSelector((state: any) =>
     state.getIn(["data", "favorite"])
   );
+  const team = useSelector((state: any) =>
+    state.getIn(["data", "team"], shallowEqual)
+  ).toJS();
+
+  const [isFromTeam, setIsFromTeam] = React.useState(false);
   // let dispatch: Dispatch<any>;
 
-  const updateFavorite = (newPokemonFavorite: string) => {
+  const updateFavorite = (newPokemonFavorite: string, newPoke: any) => {
     dispatch(setFavorite(newPokemonFavorite));
+    dispatch(setTeam(newPoke));
   };
+
+  React.useEffect(() => {
+    const pokeIsTeam = team.some(
+      (pokeTeam) => pokeTeam[0].name === pokemon.name
+    );
+    setIsFromTeam(pokeIsTeam);
+  }, [team]);
 
   return (
     <button
       key={pokemon?.name}
       onClick={() => {
-        updateFavorite(pokemon.name);
+        updateFavorite(pokemon.name, [pokemon]);
       }}
     >
       <GridItem
@@ -73,7 +86,7 @@ function Card({ pokemon }) {
           ))}
         </Flex>
 
-        {pokemon.name == favorite && (
+        {isFromTeam && (
           <Box position={"absolute"} right={"5%"} top={"5%"} zIndex={"30"}>
             <Icon icon="gg:pokemon" width={"33px"} color="#545454" />
           </Box>

@@ -15,6 +15,7 @@ import { Dispatch } from "redux";
 // import { connect } from "react-redux";
 import axios from "axios";
 import Loader from "./components/Loader";
+import TeamContainer from "./components/TeamContainer";
 
 function App() {
   const pokemons = useSelector((state: any) =>
@@ -23,6 +24,7 @@ function App() {
   const favorite = useSelector((state: any) =>
     state.getIn(["data", "favorite"])
   );
+  const team = useSelector((state: any) => state.getIn(["data", "team"]));
   const loading = useSelector((state: any) => state.getIn(["ui", "loading"]));
 
   // Dispatch se debe tipar para que no ocurran inconvenientes con lo que devuelve
@@ -38,13 +40,16 @@ function App() {
     fetchPokemons();
   }, [dispatch]);
 
+  console.log("team: ", team);
+
   return (
     <ChakraBaseProvider theme={theme}>
       <Box maxW={"1000px"} m={"0 auto"}>
-        <Heading textAlign={"center"} m={"5vh auto 43px"}>
+        <Heading as="h1" textAlign={"center"} m={"5vh auto 43px"} size="4xl">
           POKE TEAM
         </Heading>
         <Seach />
+        <TeamContainer />
         <h3>Favorite pokemon: {favorite}</h3>
         {/* <Loader /> */}
         {!!loading ? (

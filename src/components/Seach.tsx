@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { setFavorite } from "../actions";
+import { setTeam } from "../actions";
 import ResultSearch from "./ResultSearch";
 
 function Seach() {
@@ -22,8 +22,8 @@ function Seach() {
   const [resutlsSearch, setResultsSearch] = React.useState([]);
   const [isActiveSearch, setIsActiveSearch] = React.useState(false);
 
-  const updateFavorite = (newPokemonFavorite: string) => {
-    dispatch(setFavorite(newPokemonFavorite));
+  const updateFavorite = (newPokemonFavorite: any) => {
+    dispatch(setTeam(newPokemonFavorite));
     setIsActiveSearch(false);
   };
 
@@ -118,7 +118,7 @@ function Seach() {
                 namePokemon={poke?.name}
                 imagePokemon={poke?.sprites.front_default}
                 color={poke?.types[0].color}
-                action={() => updateFavorite(poke.name)}
+                action={() => updateFavorite(poke)}
               />
             ))}
           </Flex>

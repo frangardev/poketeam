@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { SET_FAVORITE, SET_POKEMON } from "../actions/Types"
+import { SET_FAVORITE, SET_POKEMON, SET_TEAM } from "../actions/Types"
 
 
 type TypeState = {
@@ -18,7 +18,8 @@ type TypeState = {
 // Delarando el stado con immutable
 const initialState = fromJS({
     pokemons: [],
-    favorite:'Pikachu'
+    favorite:'Pikachu',
+    team: []
 })
 
 
@@ -33,8 +34,23 @@ export const PokemonReducer=(state=initialState, action:any)=>{
         case SET_FAVORITE:
             return state.setIn(['favorite'], fromJS(action.payload))
             break
+        case SET_TEAM:
+            const myTeam = state.get('team').toJS()
+            const isNotNewTeam = myTeam.some(item => item[0].name === action.payload[0].name)
+
+            if(!isNotNewTeam || myTeam.length === 0) {
+              myTeam.push(action.payload)
+              if(myTeam.length > 6)  myTeam.shift()
+            }else{
+                const value = myTeam.findIndex(item =>item[0].name === action.payload[0].name)
+                myTeam.splice(value, 1)
+            } 
+
+            return state.setIn(['team'], fromJS(myTeam))
+            break
         default:
             return state;
             break
     }
 };
+
