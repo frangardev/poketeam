@@ -23,70 +23,8 @@ import Water from "../assets/Water.svg";
 function BgCard(type: string) {
   const [imgTypePokemon, setimgTypePokemon] = React.useState();
 
-  const addIcon = () => {
-    let bgColor = "#fff";
-    switch (type.type) {
-      case "grass":
-        setimgTypePokemon(Grass);
-        break;
-      case "fire":
-        setimgTypePokemon(Fire);
-        break;
-      case "water":
-        setimgTypePokemon(Water);
-        break;
-      case "normal":
-        setimgTypePokemon(Normal);
-        break;
-      case "poison":
-        setimgTypePokemon(Poison);
-        break;
-      case "electric":
-        setimgTypePokemon(Electric);
-        break;
-      case "ground":
-        setimgTypePokemon(Ground);
-        break;
-      case "fairy":
-        setimgTypePokemon(Fairy);
-        break;
-      case "psychic":
-        setimgTypePokemon(Psychic);
-        break;
-      case "rock":
-        setimgTypePokemon(Rock);
-        break;
-      case "bug":
-        setimgTypePokemon(Bug);
-        break;
-      case "fighting":
-        setimgTypePokemon(Fighting);
-        break;
-      case "ghost":
-        setimgTypePokemon(Ghost);
-        break;
-      case "steel":
-        setimgTypePokemon(Steel);
-        break;
-      case "ice":
-        setimgTypePokemon(Ice);
-        break;
-      case "dark":
-        setimgTypePokemon(Dark);
-        break;
-      case "dragon":
-        setimgTypePokemon(Dragon);
-        break;
-      case "flying":
-        setimgTypePokemon(Flying);
-        break;
-      default:
-        break;
-    }
-    return bgColor;
-  };
   React.useEffect(() => {
-    addIcon();
+    addIcon(type.type, setimgTypePokemon);
   }, []);
   return (
     <Image
@@ -98,5 +36,68 @@ function BgCard(type: string) {
     />
   );
 }
+
+export const addIcon = (type, setimgTypePokemon) => {
+  let bgColor = "#fff";
+  switch (type) {
+    case "grass":
+      setimgTypePokemon(Grass);
+      break;
+    case "fire":
+      setimgTypePokemon(Fire);
+      break;
+    case "water":
+      setimgTypePokemon(Water);
+      break;
+    case "normal":
+      setimgTypePokemon(Normal);
+      break;
+    case "poison":
+      setimgTypePokemon(Poison);
+      break;
+    case "electric":
+      setimgTypePokemon(Electric);
+      break;
+    case "ground":
+      setimgTypePokemon(Ground);
+      break;
+    case "fairy":
+      setimgTypePokemon(Fairy);
+      break;
+    case "psychic":
+      setimgTypePokemon(Psychic);
+      break;
+    case "rock":
+      setimgTypePokemon(Rock);
+      break;
+    case "bug":
+      setimgTypePokemon(Bug);
+      break;
+    case "fighting":
+      setimgTypePokemon(Fighting);
+      break;
+    case "ghost":
+      setimgTypePokemon(Ghost);
+      break;
+    case "steel":
+      setimgTypePokemon(Steel);
+      break;
+    case "ice":
+      setimgTypePokemon(Ice);
+      break;
+    case "dark":
+      setimgTypePokemon(Dark);
+      break;
+    case "dragon":
+      setimgTypePokemon(Dragon);
+      break;
+    case "flying":
+      setimgTypePokemon(Flying);
+      break;
+    default:
+      break;
+  }
+  return bgColor;
+};
 
 export default BgCard;

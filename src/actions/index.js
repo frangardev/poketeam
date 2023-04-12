@@ -1,5 +1,5 @@
 import { getPokemonDetails } from "../utils/api";
-import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM } from "./types";
+import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM, SET_TYPES } from "./types";
 
 // // import { IPokemonDetails, IPokemonType } from "../types";
 // import { Dispatch } from "redux";
@@ -44,13 +44,17 @@ import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM } from "./types";
 // import { getPokemonDetails } from '../api';
 // import { SET_LOADING,  } from './types';
 
+export const setLoading = (payload) => ({
+  type: SET_LOADING,
+  payload,
+});
+
 export const setPokemons = (payload) => ({
   type: SET_POKEMON,
   payload,
 });
-
-export const setLoading = (payload) => ({
-  type: SET_LOADING,
+export const setTypes = (payload) => ({
+  type: SET_TYPES,
   payload,
 });
 export const setFavorite = (payload) => ({
@@ -71,3 +75,13 @@ export const getPokemonsWithDetails =
 
       dispatch(setPokemons(pokemonsDetailed));
     };
+export const getTypesWithDetails =
+  (types = []) =>
+    async (dispatch) => {
+      const typesDetailed = await Promise.all(
+        types.map((pokemon) => getTypesWithDetails(pokemon.url))
+      );
+
+      dispatch(setTypes(typesDetailed));
+    };
+

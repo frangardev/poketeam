@@ -3,12 +3,18 @@ import React from "react";
 import Seach from "./components/Seach";
 import Card from "./components/Card";
 import { theme } from "./resources/theme";
-import { getPokemons, getPokemonDetails } from "./utils/api";
+import {
+  getPokemons,
+  getPokemonDetails,
+  getTypes,
+  getTypesDetails,
+} from "./utils/api";
 import {
   getPokemonsWithDetails,
   setFavorite,
   setLoading,
   setPokemons,
+  setTypes,
 } from "./actions/index.js";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
@@ -16,10 +22,14 @@ import { Dispatch } from "redux";
 import axios from "axios";
 import Loader from "./components/Loader";
 import TeamContainer from "./components/TeamContainer";
+import MiniCardType from "./components/MiniCardType";
 
 function App() {
   const pokemons = useSelector((state: any) =>
     state.getIn(["data", "pokemons"], shallowEqual)
+  ).toJS();
+  const types = useSelector((state: any) =>
+    state.getIn(["data", "types"], shallowEqual)
   ).toJS();
   const favorite = useSelector((state: any) =>
     state.getIn(["data", "favorite"])
@@ -37,10 +47,14 @@ function App() {
       dispatch(getPokemonsWithDetails(pokemonsRes.results));
       dispatch(setLoading(false));
     };
+    const fetchTypes = async () => {
+      const typesRes = await getTypes();
+      // debugger;
+      dispatch(setTypes(typesRes.results));
+    };
     fetchPokemons();
+    fetchTypes();
   }, [dispatch]);
-
-  console.log("team: ", team);
 
   return (
     <ChakraBaseProvider theme={theme}>
@@ -50,12 +64,22 @@ function App() {
         </Heading>
         <Seach />
         <TeamContainer />
+        <Grid
+          templateColumns="repeat(auto-fill, minmax(150px, 2fr))"
+          rowGap={"14px"}
+          columnGap={"21px"}
+          mb={"88px"}
+        >
+          {types.map((type) => {
+            return <MiniCardType type={type.name} key={type.name} />;
+          })}
+        </Grid>
         <h3>Favorite pokemon: {favorite}</h3>
         {/* <Loader /> */}
         {!!loading ? (
           <Loader />
         ) : (
-          <Grid templateColumns="repeat(auto-fill, minmax(19em, 1fr))" gap={6}>
+          <Grid templateColumns="repeat(auto-fill, minmax(19em, 9em))" gap={6}>
             {pokemons.map((pokemon) => {
               return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
             })}

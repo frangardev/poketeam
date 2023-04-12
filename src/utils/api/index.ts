@@ -22,3 +22,22 @@ export const getPokemonDetails = async (urlPokemon:any) => {
 		console.error(error)
 	}
 }
+export const getTypes = async () => {
+	try {
+		const { data } = await axios.get(
+			'https://pokeapi.co/api/v2/type/'
+		)
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const getTypesDetails = async (urlType:any) => {
+	try {
+		const { data } = await axios.get(urlType.url)
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}

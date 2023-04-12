@@ -7,7 +7,7 @@
 //     }
 //   };
 
-import { SET_POKEMON } from "../actions/types";
+import { SET_POKEMON, SET_TYPES } from "../actions/types";
 
 export const logger = (store:any) => (next:any) => (action:any)=>{
     console.log(action)
@@ -124,3 +124,19 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
     next(action)
   }
 }  
+
+export const deliteNotTypes =(store:any) => (next:any) => (action:any) =>{
+  if(action.type === SET_TYPES ) {
+    const updatetypes = action?.payload?.splice(-2, 2);
+    console.log('updatetypes ',updatetypes);
+    const newAction = {
+      ...action,
+      payload: updatetypes
+  }
+    // next(newAction)
+    next(action)
+  }else{
+    next(action)
+  }
+
+}

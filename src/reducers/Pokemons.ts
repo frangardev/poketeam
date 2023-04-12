@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { SET_FAVORITE, SET_POKEMON, SET_TEAM } from "../actions/Types"
+import { SET_FAVORITE, SET_POKEMON, SET_TEAM, SET_TYPES } from "../actions/Types"
 
 
 type TypeState = {
@@ -18,7 +18,8 @@ type TypeState = {
 // Delarando el stado con immutable
 const initialState = fromJS({
     pokemons: [],
-    favorite:'Pikachu',
+    types:[],
+    favorite: '',
     team: []
 })
 
@@ -30,6 +31,9 @@ export const PokemonReducer=(state=initialState, action:any)=>{
             // return{...state,pokemons:action.payload};
             //Modificando el stado com immutable
             return state.setIn(['pokemons'], fromJS(action.payload))
+            break
+        case SET_TYPES:
+            return state.setIn(['types'], fromJS(action.payload))
             break
         case SET_FAVORITE:
             return state.setIn(['favorite'], fromJS(action.payload))
