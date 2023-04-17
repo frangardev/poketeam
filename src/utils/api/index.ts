@@ -33,11 +33,13 @@ export const getTypes = async () => {
 	}
 }
 
-export const getTypesDetails = async (urlType:any) => {
+export const getTypesDetails = async (urlType:string) => {
 	try {
-		const { data } = await axios.get(urlType.url)
+		const { data } = await axios.get(urlType)
+		console.log('---GET Type data: ',data.name)
 		return data
 	} catch (error) {
+		console.log('---GET Error----to ', urlType)
 		console.error(error)
 	}
 }

@@ -7,6 +7,7 @@
 //     }
 //   };
 
+import { getTypesWithDetails } from "../actions";
 import { SET_POKEMON, SET_TYPES } from "../actions/types";
 
 export const logger = (store:any) => (next:any) => (action:any)=>{
@@ -127,16 +128,17 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
 
 export const deliteNotTypes =(store:any) => (next:any) => (action:any) =>{
   if(action.type === SET_TYPES ) {
-    const updatetypes = action?.payload?.splice(-2, 2);
-    console.log('updatetypes ',updatetypes);
+    const updatetypes = action?.payload?.filter(type => type.id !== 10001 && type.id !== 10002);
+    
     const newAction = {
       ...action,
       payload: updatetypes
   }
-    // next(newAction)
-    next(action)
+    
+    next(newAction)
   }else{
     next(action)
   }
 
 }
+

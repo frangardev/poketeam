@@ -11,6 +11,7 @@ import {
 } from "./utils/api";
 import {
   getPokemonsWithDetails,
+  getTypesWithDetails,
   setFavorite,
   setLoading,
   setPokemons,
@@ -50,7 +51,8 @@ function App() {
     const fetchTypes = async () => {
       const typesRes = await getTypes();
       // debugger;
-      dispatch(setTypes(typesRes.results));
+      // dispatch(setTypes(typesRes.results));
+      dispatch(getTypesWithDetails(typesRes.results));
     };
     fetchPokemons();
     fetchTypes();
@@ -71,7 +73,7 @@ function App() {
           mb={"88px"}
         >
           {types.map((type) => {
-            return <MiniCardType type={type.name} key={type.name} />;
+            return <MiniCardType key={type.id} type={type.name} />;
           })}
         </Grid>
         <h3>Favorite pokemon: {favorite}</h3>

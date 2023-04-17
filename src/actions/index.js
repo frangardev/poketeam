@@ -1,4 +1,4 @@
-import { getPokemonDetails } from "../utils/api";
+import { getPokemonDetails, getTypesDetails } from "../utils/api";
 import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM, SET_TYPES } from "./types";
 
 // // import { IPokemonDetails, IPokemonType } from "../types";
@@ -79,9 +79,7 @@ export const getTypesWithDetails =
   (types = []) =>
     async (dispatch) => {
       const typesDetailed = await Promise.all(
-        types.map((pokemon) => getTypesWithDetails(pokemon.url))
+        types.map((type) => getPokemonDetails(type.url))
       );
-
       dispatch(setTypes(typesDetailed));
     };
-

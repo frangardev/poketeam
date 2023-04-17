@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Flex, Heading, Button } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
+import { teamDetails } from "../utils/scripts/statsTeam";
 
 function TeamContainer() {
   const [isATeam, setIsATeam] = React.useState(false);
@@ -9,10 +10,12 @@ function TeamContainer() {
     state.getIn(["data", "team"], shallowEqual)
   ).toJS();
 
+  const allTeam = teamDetails();
+  console.log("Types my Team: ", allTeam);
+
   React.useEffect(() => {
     if (team.length == 0) setIsATeam(false);
     else setIsATeam(true);
-    console.log("My Team: ", team);
   }, [team]);
 
   return (
