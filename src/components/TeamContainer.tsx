@@ -3,20 +3,42 @@ import { Grid, Flex, Heading, Button } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { teamDetails } from "../utils/scripts/statsTeam";
+import { completeTeam } from "../utils/scripts/completeTem";
+import { setTeam } from "../actions";
 
 function TeamContainer() {
   const [isATeam, setIsATeam] = React.useState(false);
+
+  const [cTeam, setCTeam] = React.useState({});
   const team = useSelector((state: any) =>
     state.getIn(["data", "team"], shallowEqual)
   ).toJS();
+  const pokemons = useSelector((state: any) =>
+    state.getIn(["data", "pokemons"], shallowEqual)
+  ).toJS();
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const updateTeam = (newPoke: any) => {
+    dispatch(setTeam(newPoke));
+  };
 
   const allTeam = teamDetails();
-  console.log("Types my Team: ", allTeam);
+  console.log("Stats my Team: ", allTeam);
 
   React.useEffect(() => {
     if (team.length == 0) setIsATeam(false);
     else setIsATeam(true);
   }, [team]);
+
+  // React.useEffect(() => {
+  //   const cTeam = completeTeam();
+  //   if (team.length !== 5) console.log("CompleteTeam: ", cTeam);
+  // }, [isATeam]);
+
+  const createTeam = () => {
+    setCTeam(completeTeam(allTeam, pokemons, updateTeam));
+    console.log("CompleteTeam: ", cTeam);
+  };
 
   return (
     <>
@@ -54,6 +76,7 @@ function TeamContainer() {
               mb={"100px"}
               borderRadius={"33px"}
               w={"auto"}
+              onClick={() => createTeam()}
             >
               Complete Team
             </Button>
@@ -67,6 +90,7 @@ function TeamContainer() {
             size="lg"
             mb={"100px"}
             borderRadius={"33px"}
+            onClick={() => createTeam()}
           >
             create random team
           </Button>

@@ -7,6 +7,7 @@ export const getPokemons = async () => {
 		const { data } = await axios.get(
 			// 'https://pokeapi.co/api/v2/pokemon?limit=905'
 			'https://pokeapi.co/api/v2/pokemon?limit=150'
+			// 'https://pokeapi.co/api/v2/pokemon?limit=1281'
 		)
 		return data
 	} catch (error) {

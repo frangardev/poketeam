@@ -46,12 +46,12 @@ function Card({ pokemon }) {
         flexDirection={"column"}
         alignItems={"center"}
         borderRadius={"1em"}
-        bg={pokemon.types[0].color}
+        bg={pokemon?.types[0]?.color}
         pb={"5%"}
         overflow={"hidden"}
       >
         <Image
-          src={pokemon.sprites.front_default}
+          src={pokemon?.sprites?.front_default}
           alt={pokemon.name}
           w={"100%"}
           zIndex={"10"}
