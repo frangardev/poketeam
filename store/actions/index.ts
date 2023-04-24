@@ -1,4 +1,4 @@
-import { getPokemonDetails, getTypesDetails } from "../utils/api";
+import { getPokemonDetails, getTypesDetails } from "../../src/utils/api";
 import { SET_FAVORITE, SET_LOADING, SET_POKEMON, SET_TEAM, SET_TYPES } from "./types";
 
 // // import { IPokemonDetails, IPokemonType } from "../types";

@@ -8,12 +8,6 @@ type TypeState = {
     favorite: string,
 }
 
-// Declarando el state
-// const initialState: TypeState = {
-//     pokemons: [],
-//     loading: false,
-//     favorite:'Pikachu'
-// }
 
 // Delarando el stado con immutable
 const initialState = fromJS({
