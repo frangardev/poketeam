@@ -1,27 +1,24 @@
 import React from "react";
 import { GridItem, Text, Image, Flex, Box } from "@chakra-ui/react";
 import axios from "axios";
-import { setFavorite, setTeam } from "../actions";
+
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Dispatch } from "redux";
 import PokeTypeTag from "./PokeTypeTag";
 import { Icon } from "@iconify/react";
 import BgCard from "./BgCard";
+import { setTeam } from "../../redux/slices/dataSlice";
+import { RootState } from "../../redux/store";
 
 function Card({ pokemon }) {
-  const dispatch = useDispatch<Dispatch<any>>();
-  const favorite = useSelector((state: any) =>
-    state.getIn(["data", "favorite"])
-  );
-  const team = useSelector((state: any) =>
-    state.getIn(["data", "team"], shallowEqual)
-  ).toJS();
+  // const dispatch = useDispatch<Dispatch<any>>();
+  const dispatch = useDispatch();
+  const team = useSelector((state: RootState) => state.data.team, shallowEqual);
 
   const [isFromTeam, setIsFromTeam] = React.useState(false);
   // let dispatch: Dispatch<any>;
 
-  const updateFavorite = (newPokemonFavorite: string, newPoke: any) => {
-    dispatch(setFavorite(newPokemonFavorite));
+  const updateFavorite = (newPoke: any) => {
     dispatch(setTeam(newPoke));
   };
 
@@ -36,7 +33,7 @@ function Card({ pokemon }) {
     <button
       key={pokemon?.name}
       onClick={() => {
-        updateFavorite(pokemon.name, [pokemon]);
+        updateFavorite([pokemon]);
       }}
     >
       <GridItem

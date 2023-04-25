@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './counterSlice'
-import dataReducer from "./slices/dataSlice";
-import uiReducer from "./slices/uiSlice";
+import dataReducer from "../slices/dataSlice";
+import uiReducer from "../slices/uiSlice";
 
 export const store = configureStore({
-  reducer: {
-    data: dataReducer,
-    ui: uiReducer,
-    counter: counterReducer
-  }
+    reducer: {
+        data: dataReducer,
+        ui: uiReducer,
+        counter: counterReducer
+    }
 })
 
 
