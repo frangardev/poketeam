@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { fetchPokemonsWithDetails } from '../redux/slices/dataSlice'
+import { fetchPokemonsWithDetails, fetchTypesWithDetails } from '../redux/slices/dataSlice'
 import { Box, Heading, Grid } from '@chakra-ui/layout'
 
 import Loader from '../src/components/Loader'
@@ -16,6 +16,7 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
+    dispatch(fetchTypesWithDetails());
   }, []);
 
 

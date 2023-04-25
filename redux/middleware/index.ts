@@ -7,18 +7,17 @@
 //     }
 //   };
 
-import { getTypesWithDetails } from "../actions";
-import { SET_POKEMON, SET_TYPES } from "../actions/types";
+// import { getTypesWithDetails } from "../actions";
+// import { SET_POKEMON, SET_TYPES } from "../actions/types";
+import { Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
-export const logger = (store:any) => (next:any) => (action:any)=>{
-    console.log(action)
-    next(action)
-}
-export const firstLetterToUppercase = (store:any) => (next:any) => (action:any)=>{
-  if (action.type === SET_POKEMON) {
-    const updateNamePokemon = action?.payload?.map((pokemon)=>{
+
+export const firstLetterToUppercase = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
+  if (action.type == 'data/setPokemons') {
+    console.log('Is action: ', action);
+    
+    const updateNamePokemon = action?.payload?.map((pokemon:any)=>{
         const nameUpperCase = pokemon?.name?.charAt(0).toUpperCase()+pokemon.name.slice(1)
-        // console.log(nameUpperCase)
         return {
             ...pokemon,
             name: nameUpperCase 
@@ -32,13 +31,14 @@ export const firstLetterToUppercase = (store:any) => (next:any) => (action:any)=
     
     next(newAction)
   }else{
+    console.log('Is NOT action: ', action);
     next(action)
   }
 }
 
-export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
-  if(action.type === SET_POKEMON ) {
-    const addColor = (pokemon)=>{
+export const addColorTypePokemon = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
+  if(action.type == 'data/setPokemons' ) {
+    const addColor = (pokemon:string)=>{
         let bgColor = '#fff'
         switch (pokemon) {
             case "grass":
@@ -103,7 +103,7 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
     } 
 
     const newPayload =action.payload.map(poke => {
-      const typeColorsPoke = poke.types.map((type)=>{
+      const typeColorsPoke = poke.types.map((type:any)=>{
         const color = addColor(type.type.name)
         return {
           ...type,
@@ -126,15 +126,14 @@ export const addColorTypePokemon =(store:any) => (next:any) => (action:any) =>{
   }
 }  
 
-export const deliteNotTypes =(store:any) => (next:any) => (action:any) =>{
-  if(action.type === SET_TYPES ) {
+export const deliteNotTypes = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
+  if(action.type == 'data/setTypes' ) {
     const updatetypes = action?.payload?.filter(type => type.id !== 10001 && type.id !== 10002);
     
     const newAction = {
       ...action,
       payload: updatetypes
   }
-    
     next(newAction)
   }else{
     next(action)
@@ -142,3 +141,11 @@ export const deliteNotTypes =(store:any) => (next:any) => (action:any) =>{
 
 }
 
+
+export const myLoggingMiddleware = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
+  // Here you have access to `action.type` and `action.payload`
+  console.log('--Logging action with type', action.type)
+  
+  // You should always do this at the end of your middleware
+  return next(action)
+}

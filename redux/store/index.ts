@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './counterSlice'
 import dataReducer from "../slices/dataSlice";
 import uiReducer from "../slices/uiSlice";
+import { myLoggingMiddleware, deliteNotTypes, addColorTypePokemon, firstLetterToUppercase } from '../middleware';
 
 export const store = configureStore({
     reducer: {
         data: dataReducer,
-        ui: uiReducer,
-        counter: counterReducer
-    }
+        ui: uiReducer
+    }, 
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(myLoggingMiddleware, addColorTypePokemon, deliteNotTypes, firstLetterToUppercase),
 })
 
 

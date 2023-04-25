@@ -17,7 +17,7 @@ function MiniCardType({ type }) {
       borderRadius={"33px"}
       //   m={"0 auto"}
     >
-      <Image src={imgTypePokemon} h={"100%"} />
+      <Image src={imgTypePokemon?.src} h={"100%"} />
       <Text fontSize={"20px"} fontWeight={"300"} color={"#575862"}>
         {type.charAt(0).toUpperCase() + type.slice(1)}
       </Text>

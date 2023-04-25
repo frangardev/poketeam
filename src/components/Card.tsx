@@ -3,7 +3,6 @@ import { GridItem, Text, Image, Flex, Box } from "@chakra-ui/react";
 import axios from "axios";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Dispatch } from "redux";
 import PokeTypeTag from "./PokeTypeTag";
 import { Icon } from "@iconify/react";
 import BgCard from "./BgCard";
