@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, keyframes, usePrefersReducedMotion } from "@chakra-ui/react";
+import Pokeball from "./Pokeball";
 // import logo from './logo.svg'
 
 const spin = keyframes`
@@ -18,36 +19,12 @@ function Loader() {
   }, []);
 
   return (
-    <Box
-      w={"5em"}
-      h={"5em"}
-      m={"10vh auto"}
-      bg={"white"}
-      borderRadius={"50%"}
-      overflow={"hidden"}
-      position={"relative"}
+    <Pokeball
       animation={animation}
-      border={"1px solid #3e3e3e"}
-    >
-      <Box
-        w={"100%"}
-        h={"50%"}
-        bgColor={"#E9989D"}
-        position={"absolute"}
-        top={"0"}
-        borderBottom={"1px solid #3e3e3e"}
-      ></Box>
-      <Box
-        w={"1em"}
-        h={"1em"}
-        bg={"white"}
-        borderRadius={"50%"}
-        position={"absolute"}
-        top={"40%"}
-        left={"40%"}
-        border={"1px solid #3e3e3e"}
-      ></Box>
-    </Box>
+      color={"#FDD1B4"}
+      width={"5em"}
+      colorCenter={"#FDD1B4"}
+    />
   );
 }
 

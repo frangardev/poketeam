@@ -6,7 +6,10 @@ import { Box, Heading, Grid } from '@chakra-ui/layout'
 
 import Loader from '../src/components/Loader'
 import Card from '../src/components/Card'
-
+import GridContainerCards from '../src/components/GridContainerCards'
+import SectionTypesPokemon from '../src/components/SectionTypesPokemon'
+import TeamContainer from '../src/components/TeamContainer'
+import Search from '../src/components/Search'
 
 function HomePage() {
 
@@ -28,26 +31,18 @@ function HomePage() {
         </Heading>
         {/* <Search /> */}
         {/* <TeamContainer /> */}
-
-        {/* <Grid
-          templateColumns="repeat(auto-fill, minmax(150px, 2fr))"
-          rowGap={"14px"}
-          columnGap={"21px"}
-          mb={"88px"}
-        >
-          {types.map((type) => {
-            return <MiniCardType key={type.id} type={type.name} />;
-          })}
-        </Grid> */}
+        <TeamContainer />
+        <SectionTypesPokemon />
+        <Search />
         {/* <Loader /> */}
         {!!loading ? (
           <Loader />
         ) : (
-          <Grid templateColumns="repeat(auto-fill, minmax(19em, 9em))" gap={6}>
+          <GridContainerCards w={'100%'}>
             {pokemons.map((pokemon) => {
               return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
             })}
-          </Grid>
+          </GridContainerCards>
         )}
       </Box>
     </Box>

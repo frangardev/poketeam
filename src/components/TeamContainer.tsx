@@ -4,19 +4,27 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { teamDetails } from "../utils/scripts/statsTeam";
 import { completeTeam } from "../utils/scripts/completeTem";
-import { setTeam } from "../actions";
+
+import GridContainerCards from "./GridContainerCards";
+import { setTeam } from "../../redux/slices/dataSlice";
 
 function TeamContainer() {
   const [isATeam, setIsATeam] = React.useState(false);
 
   const [cTeam, setCTeam] = React.useState({});
-  const team = useSelector((state: any) =>
-    state.getIn(["data", "team"], shallowEqual)
-  ).toJS();
-  const pokemons = useSelector((state: any) =>
-    state.getIn(["data", "pokemons"], shallowEqual)
-  ).toJS();
-  const dispatch = useDispatch<Dispatch<any>>();
+  // const team = useSelector((state: any) =>
+  //   state.getIn(["data", "team"], shallowEqual)
+  // ).toJS();
+  // const pokemons = useSelector((state: any) =>
+  //   state.getIn(["data", "pokemons"], shallowEqual)
+  // ).toJS();
+  const team = useSelector((state: any) => state.data.team, shallowEqual);
+  const pokemons = useSelector(
+    (state: any) => state.data.pokemons,
+    shallowEqual
+  );
+  // const dispatch = useDispatch<Dispatch<any>>();
+  const dispatch = useDispatch();
 
   const updateTeam = (newPoke: any) => {
     dispatch(setTeam(newPoke));
@@ -64,9 +72,11 @@ function TeamContainer() {
             mb={"80px"}
             w={"100%"}
           >
+            {/* <GridContainerCards> */}
             {team.map((pokemon, index) => {
               return <Card key={index} pokemon={pokemon[0]}></Card>;
             })}
+            {/* </GridContainerCards> */}
           </Grid>
           {team.length < 6 && (
             <Button

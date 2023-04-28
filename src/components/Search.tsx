@@ -10,21 +10,22 @@ import {
 } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { setTeam } from "../actions";
-import ResultSearch from "./ResultSearch";
 
-function Seach() {
-  const dispatch = useDispatch<Dispatch<any>>();
-  const pokemons = useSelector((state: any) =>
-    state.getIn(["data", "pokemons"], shallowEqual)
-  ).toJS();
+import ResultSearch from "./ResultSearch";
+import { setTeam } from "../../redux/slices/dataSlice";
+
+function Search() {
+  const pokemons = useSelector(
+    (state: any) => state.data.pokemons,
+    shallowEqual
+  );
+  const dispatch = useDispatch();
 
   const [resutlsSearch, setResultsSearch] = React.useState([]);
   const [isActiveSearch, setIsActiveSearch] = React.useState(false);
 
-  const updateFavorite = (newPokemonFavorite: any) => {
-    dispatch(setTeam(newPokemonFavorite));
-    setIsActiveSearch(false);
+  const updateFavorite = (newPoke: any) => {
+    dispatch(setTeam(newPoke));
   };
 
   const searchPokemon = (searchValue) => {
@@ -111,14 +112,14 @@ function Seach() {
             maxH={"50vh"}
             overflowY={"scroll"}
           >
-            {resutlsSearch.map((poke) => (
+            {resutlsSearch.map((poke: any) => (
               // <Text>{poke.name}</Text>
               <ResultSearch
                 key={poke.name}
                 namePokemon={poke?.name}
                 imagePokemon={poke?.sprites.front_default}
                 color={poke?.types[0].color}
-                action={() => updateFavorite(poke)}
+                action={() => updateFavorite([poke])}
               />
             ))}
           </Flex>
@@ -140,4 +141,4 @@ function Seach() {
     </>
   );
 }
-export default Seach;
+export default Search;

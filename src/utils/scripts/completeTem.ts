@@ -14,15 +14,18 @@ export const completeTeam = ( statsMyTeam, pokemons, updateTeam ) =>{
     if(statsMyTeam === undefined) return 'error team'
     else{
 
-        const newTeam = statsMyTeam?.team 
+        // const newTeam = statsMyTeam?.team 
 
         const getRandomInt = (max) => {
             return Math.floor(Math.random() * max);
         }
 
+        let newTeam = [...statsMyTeam?.team]
+
         // debugger
-        // while ( newTeam?.length < 5 ) {    
-        while ( statsMyTeam?.team.length < 6 ) {    
+        // while ( newTeam?.length < 5 ) {  
+            let i =0  
+        while ( newTeam?.length < 6) {    
             const typeDevil = statsMyTeam?.notStrongAgainst[getRandomInt(statsMyTeam?.notStrongAgainst.length)]?.damage_relations?.double_damage_from[0]
             // console.log(getRandomInt(statsMyTeam?.notStrongAgainst.length));
             // console.log(statsMyTeam?.notStrongAgainst);
@@ -37,15 +40,19 @@ export const completeTeam = ( statsMyTeam, pokemons, updateTeam ) =>{
             const newPokeTeam = pokemons?.map(poke=>{
                 if(poke.name.toLowerCase() === newPoke.pokemon.name) return poke
             }).filter(item => item !== undefined)
-            // console.log(newPokeTeam);
+            console.log(newPokeTeam);
             
             // console.log(newPoke.pokemon.name);
             // console.log('--newPoke: ', pokemons[getRandomInt(149)].name);
-
-            newTeam.push(newPokeTeam)
-            // debugger
             console.log('--newPoke: ', newPokeTeam);
-            if(newPokeTeam) updateTeam(newPokeTeam)
+
+            console.log('---newTeam: ', newTeam);
+            console.log('---MyTeam: ', statsMyTeam.team);
+            // debugger
+            newTeam.push(newPokeTeam)
+            // if(newPokeTeam) updateTeam(newPokeTeam)
+            updateTeam(newPokeTeam)
+            i= i+1
         }
         // for (let index = 0; index < newTeam.length; index++) {
         //     const typeDevil = statsMyTeam?.notStrongAgainst[0]?.damage_relations?.double_damage_from[index];
