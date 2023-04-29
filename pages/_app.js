@@ -5,6 +5,7 @@ import { ChakraBaseProvider } from '@chakra-ui/react';
 import { theme } from "../src/resources/theme";
 
 function MyApp({ Component, pageProps }) {
+    console.log('theme: ', theme);
     return (
         <Provider store={store}>
             <ChakraBaseProvider theme={theme}>

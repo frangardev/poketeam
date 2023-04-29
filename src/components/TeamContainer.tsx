@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Flex, Heading, Button } from "@chakra-ui/react";
+import { Grid, Flex, Heading, Button, Text } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { teamDetails } from "../utils/scripts/statsTeam";
@@ -59,6 +59,7 @@ function TeamContainer() {
       >
         Your pokemon team
       </Heading>
+      <Text variant={"subTitle"}>Hola!!</Text>
       {isATeam ? (
         <Flex
           flexDirection={"column"}
@@ -79,29 +80,14 @@ function TeamContainer() {
             {/* </GridContainerCards> */}
           </Grid>
           {team.length < 6 && (
-            <Button
-              colorScheme="pink"
-              variant="solid"
-              size="lg"
-              mb={"100px"}
-              borderRadius={"33px"}
-              w={"auto"}
-              onClick={() => createTeam()}
-            >
+            <Button variant="primary" onClick={() => createTeam()}>
               Complete Team
             </Button>
           )}
         </Flex>
       ) : (
         <Flex justifyContent={"center"} alignItems={"center"}>
-          <Button
-            colorScheme="pink"
-            variant="solid"
-            size="lg"
-            mb={"100px"}
-            borderRadius={"33px"}
-            onClick={() => createTeam()}
-          >
+          <Button variant="primary" onClick={() => createTeam()}>
             create random team
           </Button>
         </Flex>
