@@ -34,7 +34,7 @@ function HomePage() {
         <SectionTypesPokemon />
         {/* <Search /> */}
         {/* <Loader /> */}
-        {!!loading ? (
+        {/* {!!loading ? (
           <Loader />
         ) : (
           <GridContainerCards w={'100%'}>
@@ -42,7 +42,7 @@ function HomePage() {
               return <Card key={pokemon?.name} pokemon={pokemon}></Card>;
             })}
           </GridContainerCards>
-        )}
+        )} */}
       </Box>
     </Box>
   )
