@@ -3,6 +3,7 @@ import { Box, Grid, Text } from "@chakra-ui/layout";
 import { useSelector, shallowEqual } from "react-redux";
 
 import MiniCardType from "./MiniCardType";
+import Search from "./Search";
 
 function SectionTypesPokemon() {
   const types = useSelector(
@@ -12,7 +13,11 @@ function SectionTypesPokemon() {
 
   return (
     <Box>
-      <Text variant={"subTitle"}>Add your team</Text>
+      <Text variant={"subTitle"} mb={"10px"}>
+        Add your team
+      </Text>
+
+      <Search />
 
       <Grid
         templateColumns="repeat(auto-fill, minmax(150px, 2fr))"

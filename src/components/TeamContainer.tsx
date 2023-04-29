@@ -59,7 +59,6 @@ function TeamContainer() {
       >
         Your pokemon team
       </Heading>
-      <Text variant={"subTitle"}>Hola!!</Text>
       {isATeam ? (
         <Flex
           flexDirection={"column"}
@@ -80,14 +79,14 @@ function TeamContainer() {
             {/* </GridContainerCards> */}
           </Grid>
           {team.length < 6 && (
-            <Button variant="primary" onClick={() => createTeam()}>
+            <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>
               Complete Team
             </Button>
           )}
         </Flex>
       ) : (
         <Flex justifyContent={"center"} alignItems={"center"}>
-          <Button variant="primary" onClick={() => createTeam()}>
+          <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>
             create random team
           </Button>
         </Flex>

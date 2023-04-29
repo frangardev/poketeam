@@ -9,7 +9,6 @@ import Card from '../src/components/Card'
 import GridContainerCards from '../src/components/GridContainerCards'
 import SectionTypesPokemon from '../src/components/SectionTypesPokemon'
 import TeamContainer from '../src/components/TeamContainer'
-import Search from '../src/components/Search'
 
 function HomePage() {
 
@@ -33,7 +32,7 @@ function HomePage() {
         {/* <TeamContainer /> */}
         <TeamContainer />
         <SectionTypesPokemon />
-        <Search />
+        {/* <Search /> */}
         {/* <Loader /> */}
         {!!loading ? (
           <Loader />

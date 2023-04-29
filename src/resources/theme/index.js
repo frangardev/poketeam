@@ -6,6 +6,7 @@ const colors = {
         success: '5AD5C5',
         primary: '#F7B3E4',
         secondary: '#FFF',
+        while: '#FFF',
         gray: '#F1E3FF',
         purple: '#7604F1',
         bg: '#FFFDF6',
@@ -21,7 +22,6 @@ const colors = {
 }
 const Text = {
     baseStyle: {
-        fontFamily: 'Lexend Deca',
         fontStyle: 'normal',
         color: 'colors.text'
     },
@@ -49,7 +49,7 @@ const Button = {
     },
     variants: {
         primary: {
-             bg: 'colors.primary',
+            bg: 'colors.primary',
         },
         secondary: {
             bg: 'colors.secondary',

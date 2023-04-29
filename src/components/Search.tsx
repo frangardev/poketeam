@@ -41,11 +41,14 @@ function Search() {
   return (
     <>
       <Box
-        position={"relative"}
+        position={isActiveSearch ? "absolute" : "relative"}
         bg={isActiveSearch ? "white" : "transparent"}
         p={isActiveSearch ? "20px 1em 49px" : "0"}
         borderRadius={"33px"}
         boxShadow={isActiveSearch ? "0px 4px 4px rgba(0, 0, 0, 0.08)" : "none"}
+        zIndex={"200"}
+        w={"100%"}
+        maxW={"1000px"}
       >
         <Flex
           alignItems={"center"}
@@ -55,18 +58,20 @@ function Search() {
           zIndex={"200"}
         >
           <InputGroup
-            bg={"#F6F6F6"}
+            bg={"colors.while"}
             borderRadius={"58px"}
             overflow={"hidden"}
+            alignItems={"center"}
+            justifyContent={"center"}
             onClick={() => setIsActiveSearch(true)}
           >
             <InputLeftAddon
-              bg={"#F6F6F6"}
+              bg={"colors.while"}
               border={"none"}
-              p={"12px 34px"}
+              p={"10px 19px 10px 21px "}
               h={"100%"}
               children={
-                <Icon icon="ri:search-line" width={"58px"} color="#545454" />
+                <Icon icon="ri:search-line" width={"30px"} color="#545454" />
               }
             />
             <Input
@@ -75,11 +80,11 @@ function Search() {
               _placeholder={{
                 opacity: 0.6,
                 color: "#545454",
-                fontSize: "40px",
+                fontSize: "1.25rem",
                 fontWeight: "300",
               }}
               border={"none"}
-              fontSize={"40px"}
+              fontSize={"1.25rem"}
               p={"1em 0"}
               onChange={(e) => searchPokemon(e.target.value)}
             />
@@ -87,11 +92,13 @@ function Search() {
           {isActiveSearch && (
             <Button
               bgColor={"transparent"}
-              fontSize={"40px"}
+              fontSize={"1.25rem"}
               fontWeight={"300"}
               opacity={".5"}
               cursor={"pointer"}
+              boxShadow={"none"}
               _hover={{ opacity: ".7" }}
+              zIndex={"200"}
               onClick={() => setIsActiveSearch(false)}
             >
               Cancelar
@@ -102,10 +109,7 @@ function Search() {
         {/* Results Search */}
         {isActiveSearch && (
           <Flex
-            // position={"absolute"}
             position={"relative"}
-            // left={"0"}
-            // top={"100px"}
             flexDirection={"column"}
             w={"100%"}
             zIndex={"300"}
@@ -113,7 +117,6 @@ function Search() {
             overflowY={"scroll"}
           >
             {resutlsSearch.map((poke: any) => (
-              // <Text>{poke.name}</Text>
               <ResultSearch
                 key={poke.name}
                 namePokemon={poke?.name}
@@ -136,6 +139,7 @@ function Search() {
           top={"0"}
           left={"0"}
           zIndex={"100"}
+          bgColor={"blackAlpha.100"}
         ></Box>
       )}
     </>
