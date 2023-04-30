@@ -6,12 +6,12 @@ import {
   usePrefersReducedMotion,
 } from "@chakra-ui/react";
 
-function Pokeball({ animation, width, color, colorCenter }) {
+function Pokeball({ animation, width, color, colorCenter, cutomMargin }) {
   return (
     <Box
       w={width}
       h={width}
-      m={"10vh auto"}
+      m={cutomMargin}
       bg={"white"}
       borderRadius={"50%"}
       overflow={"hidden"}

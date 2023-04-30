@@ -24,6 +24,7 @@ function Loader() {
       color={"#FDD1B4"}
       width={"5em"}
       colorCenter={"#FDD1B4"}
+      cutomMargin={"10vh auto"}
     />
   );
 }
