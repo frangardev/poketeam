@@ -18,6 +18,7 @@ const colors = {
         yellow: '#FFEB99',
         textColor: '#575862',
         green: '#E3EFC9',
+        red: '#FCD6D6'
     },
 }
 const Text = {
@@ -53,6 +54,16 @@ const Button = {
         },
         secondary: {
             bg: 'colors.secondary',
+        },
+        select: {
+            fontSize: '1.25rem',
+            boxShadow: 'none',
+            padding: '6px 2px',
+            borderRadius: '0',
+            _hover: {
+                borderButton: '1px solid',
+                opacity: '1'
+            }
         }
     }
 }

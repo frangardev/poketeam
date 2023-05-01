@@ -38,8 +38,14 @@ function BgCard(type) {
   );
 }
 
+/**
+ *
+ * @param type : name the type
+ * @param setimgTypePokemon : functions save image
+ * @returns
+ */
 export const addIcon = (type: string, setimgTypePokemon: any) => {
-  let bgColor = "#fff";
+  // let bgColor = "#fff";
   switch (type) {
     case "grass":
       setimgTypePokemon(Grass);
@@ -98,7 +104,7 @@ export const addIcon = (type: string, setimgTypePokemon: any) => {
     default:
       break;
   }
-  return bgColor;
+  // return bgColor;
 };
 
 export default BgCard;

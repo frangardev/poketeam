@@ -7,17 +7,12 @@ import { completeTeam } from "../utils/scripts/completeTem";
 
 import GridContainerCards from "./GridContainerCards";
 import { setTeam } from "../../redux/slices/dataSlice";
+import StatsTeam from "./StatsTeam";
 
 function TeamContainer() {
   const [isATeam, setIsATeam] = React.useState(false);
 
   const [cTeam, setCTeam] = React.useState({});
-  // const team = useSelector((state: any) =>
-  //   state.getIn(["data", "team"], shallowEqual)
-  // ).toJS();
-  // const pokemons = useSelector((state: any) =>
-  //   state.getIn(["data", "pokemons"], shallowEqual)
-  // ).toJS();
   const team = useSelector((state: any) => state.data.team, shallowEqual);
   const pokemons = useSelector(
     (state: any) => state.data.pokemons,
@@ -31,17 +26,12 @@ function TeamContainer() {
   };
 
   const allTeam = teamDetails();
-  console.log("Stats my Team: ", allTeam);
+  // console.log("Stats my Team: ", allTeam);
 
   React.useEffect(() => {
     if (team.length == 0) setIsATeam(false);
     else setIsATeam(true);
   }, [team]);
-
-  // React.useEffect(() => {
-  //   const cTeam = completeTeam();
-  //   if (team.length !== 5) console.log("CompleteTeam: ", cTeam);
-  // }, [isATeam]);
 
   const createTeam = () => {
     setCTeam(completeTeam(allTeam, pokemons, updateTeam));
@@ -78,10 +68,12 @@ function TeamContainer() {
             })}
             {/* </GridContainerCards> */}
           </Grid>
-          {team.length < 6 && (
+          {team.length < 6 ? (
             <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>
               Complete Team
             </Button>
+          ) : (
+            <StatsTeam stats={allTeam} />
           )}
         </Flex>
       ) : (
