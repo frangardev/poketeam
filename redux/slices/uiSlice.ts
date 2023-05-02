@@ -3,10 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
     loading: boolean,
+    loadingTypes: boolean,
 }
 
 const initialState: CounterState = {
     loading: false,
+    loadingTypes: false
 }
 
 export const uiSlice = createSlice({
@@ -16,9 +18,12 @@ export const uiSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
         state.loading = action.payload
       },
+    setLoadingTypes: (state, action: PayloadAction<boolean>) => {
+        state.loadingTypes = action.payload
+      },
   },
 });
 
-export const { setLoading } = uiSlice.actions;
+export const { setLoading, setLoadingTypes } = uiSlice.actions;
 
 export default uiSlice.reducer;

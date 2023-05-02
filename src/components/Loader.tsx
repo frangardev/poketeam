@@ -4,8 +4,17 @@ import Pokeball from "./Pokeball";
 // import logo from './logo.svg'
 
 const spin = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
 `;
 
 function Loader() {
@@ -14,9 +23,6 @@ function Loader() {
   const animation = prefersReducedMotion
     ? undefined
     : `${spin} infinite 2s linear`;
-  React.useEffect(() => {
-    console.log("Loading...");
-  }, []);
 
   return (
     <Pokeball

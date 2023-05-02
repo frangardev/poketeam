@@ -87,7 +87,9 @@ function Card({ pokemon }) {
             <Icon icon="gg:pokemon" width={"33px"} color="#545454" />
           </Box>
         )}
-        <BgCard type={pokemon.types[0].type.name} />
+        <Box opacity={"0.3"}>
+          <BgCard type={pokemon.types[0].type.name} />
+        </Box>
       </GridItem>
     </button>
   );

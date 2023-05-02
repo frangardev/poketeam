@@ -43,7 +43,7 @@ function StatsTeam({ stats }) {
       gridTemplateRows={"25% 85%"}
       gridTemplateColumns={"40% 35% 25%"}
       w={"100%"}
-      mb={"44px"}
+      mb={"64px"}
     >
       <GridItem pl="2" area={"title"}>
         <Text variant="subTitle" fontSize={"36px"}>

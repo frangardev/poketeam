@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { getPokemonDetails, getPokemons, getTypes } from '../../src/utils/api';
-import { setLoading } from './uiSlice';
+import { setLoading, setLoadingTypes } from './uiSlice';
 
 export interface CounterState {
     pokemons: any,
@@ -31,11 +31,13 @@ export const fetchPokemonsWithDetails = createAsyncThunk(
 export const fetchTypesWithDetails = createAsyncThunk(
   'data/fetchTypesWithDetails',
   async (_, { dispatch }) => {
+    dispatch(setLoadingTypes(true));
     const typesRes = await getTypes();
     const typesDetailed = await Promise.all(
       typesRes.results.map((type:any) => getPokemonDetails(type.url))
     );
     dispatch(setTypes(typesDetailed));
+    dispatch(setLoadingTypes(true));
   }
 );
 
