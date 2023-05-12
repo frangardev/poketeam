@@ -5,7 +5,6 @@ import { useSelector, shallowEqual } from "react-redux";
 
 import MiniCardType from "./MiniCardType";
 import Search from "./Search";
-import MiniCardTypeLoader from "./MiniCardTypeLoader";
 
 function SectionTypesPokemon() {
   const types = useSelector(

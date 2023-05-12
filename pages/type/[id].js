@@ -1,8 +1,12 @@
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/router'
+// import { redirect } from 'next/navigation';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { fetchPokemonsWithDetails, fetchTypesWithDetails } from '../../redux/slices/dataSlice';
+
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
+
 import GridContainerCards from '../../src/components/GridContainerCards';
 import Card from '../../src/components/Card';
 import { addIcon } from '../../src/components/BgCard';
@@ -29,10 +33,18 @@ function TypesPage() {
 
     useEffect(() => {
         if (typePokemons) {
-            const allPokesType = pokemons.filter(poke => poke.types.some(type => type.type.name == typePokemons))
-            setAllPokemonsType(allPokesType)
-            addIcon(typePokemons, setimgTypePokemon);
-            setTitle(typePokemons.charAt(0).toUpperCase() + typePokemons.slice(1))
+            if (typePokemons == 'all') setAllPokemonsType(pokemons)
+            else {
+                const allPokesType = pokemons.filter(poke => poke.types.some(type => type.type.name == typePokemons))
+                if (allPokesType.length === 0) {
+                    console.error('Error no es correcto el enlace');
+                    // redirect('/');
+                    router.push('/404')
+                }
+                setAllPokemonsType(allPokesType)
+                addIcon(typePokemons, setimgTypePokemon);
+                setTitle(typePokemons.charAt(0).toUpperCase() + typePokemons.slice(1))
+            }
         }
     }, [typePokemons])
 
@@ -42,10 +54,15 @@ function TypesPage() {
             <Box position={'sticky'} top={'0'} zIndex={'100'}>
                 <Navbar />
             </Box>
-            <Flex w={'100%'} justifyContent={'center'} alignItems={'center'} gap={'.5em'} mb={'48px'}>
-                <Image src={imgTypePokemon?.src} w={"64px"} />
-                <Text variant='title' textAlign={'center'}>{title}</Text>
-            </Flex>
+            {typePokemons == 'all'
+                ? (<Text variant={'title'} textAlign={'center'} m={'48px 0'} fontSize={{ base: "33px", md: "40px", lg: "48px" }}>Pokemons</Text>)
+                : (
+                    <Flex w={'100%'} justifyContent={'center'} alignItems={'center'} gap={'.5em'} mb={'48px'}>
+                        <Image src={imgTypePokemon?.src} w={{ base: '48px', md: '52px', lg: "64px" }} />
+                        <Text variant='title' textAlign={'center'} fontSize={{ base: "33px", md: "40px", lg: "48px" }}>{title}</Text>
+                    </Flex>
+                )
+            }
             {!!loading ? (
                 <Loader />
             ) : (

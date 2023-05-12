@@ -4,14 +4,14 @@ import Link from "next/link";
 import React from "react";
 import Logo from "./Logo";
 
-function Navbar() {
+function Navbar({ home }) {
   return (
     <Flex
       position={"static"}
       alignItems={"center"}
       justifyContent={"space-between"}
       w={"100%"}
-      bg={"#FFFDF6"}
+      bg={home ? "none" : "#FFFDF6"}
     >
       <Link href={"/"}>
         <Logo />
