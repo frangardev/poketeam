@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { fetchPokemonsWithDetails, fetchTypesWithDetails } from '../redux/slices/dataSlice'
 import { Box, Flex } from '@chakra-ui/layout'
 
@@ -12,10 +12,13 @@ import HeaderHome from '../src/components/HeaderHome'
 function HomePage() {
 
   const dispatch = useDispatch()
+  const pokemons = useSelector((state) => state.data.pokemons, shallowEqual)
 
   useEffect(() => {
-    dispatch(fetchPokemonsWithDetails());
-    dispatch(fetchTypesWithDetails());
+    if (!(pokemons.length > 0)) {
+      dispatch(fetchPokemonsWithDetails());
+      dispatch(fetchTypesWithDetails());
+    }
   }, []);
 
 
@@ -27,7 +30,7 @@ function HomePage() {
         </Box>
       </Flex>
       <HeaderHome />
-      <Box maxW={"1000px"} m={"0 auto"} w={'82%'}>
+      <Box maxW={"1000px"} m={"0 auto"} w={'82%'} id='createTeam'>
         <TeamContainer />
         <SectionTypesPokemon />
       </Box>

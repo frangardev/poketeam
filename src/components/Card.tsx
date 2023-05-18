@@ -44,6 +44,7 @@ function Card({ pokemon }) {
         borderRadius={"1em"}
         bg={pokemon?.types[0]?.color}
         pb={"5%"}
+        minH={"100%"}
         overflow={"hidden"}
       >
         <Image

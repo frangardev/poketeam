@@ -8,63 +8,60 @@ import { teamDetails } from "./statsTeam"
 import { setTeam } from "../../actions";
 
 
-export const completeTeam = ( statsMyTeam, pokemons, updateTeam ) =>{
+
+export const completeTeam = ( statsMyTeam, pokemons, updateTeam, allTypes ) =>{
     // const statsMyTeam = teamDetails()
     
     if(statsMyTeam === undefined) return 'error team'
     else{
-
-        // const newTeam = statsMyTeam?.team 
-
         const getRandomInt = (max) => {
             return Math.floor(Math.random() * max);
         }
 
         let newTeam = [...statsMyTeam?.team]
-
         // debugger
-        // while ( newTeam?.length < 5 ) {  
-            let i =0  
-        while ( newTeam?.length < 6) {    
-            const typeDevil = statsMyTeam?.notStrongAgainst[getRandomInt(statsMyTeam?.notStrongAgainst.length)]?.damage_relations?.double_damage_from[0]
+        while ( newTeam?.length < 6) { 
+            let newStats={}
+            if (newTeam.length >= 1 ) {
+                newStats = teamDetails(newTeam, allTypes)
+            }else{
+                newStats = statsMyTeam
+            }
+            
+            const typeDevil = newStats?.notStrongAgainst[getRandomInt(newStats?.notStrongAgainst?.length)]?.damage_relations?.double_damage_from[0]
             // console.log(getRandomInt(statsMyTeam?.notStrongAgainst.length));
             // console.log(statsMyTeam?.notStrongAgainst);
             
-            const conterPopkes = statsMyTeam?.allTypes?.filter(item => item?.name === typeDevil?.name)
+            const conterPopkes = newStats?.allTypes?.filter(item => item?.name === typeDevil?.name)
             
             // console.log('conterPopkes ', conterPopkes);
-            const newPoke = conterPopkes[0]?.pokemon[getRandomInt(3)]
-            // const newPoke = conterPopkes[0]?.pokemon[getRandomInt(conterPopkes[0]?.pokemon?.length)]
+            // const newPoke = conterPopkes[0]?.pokemon[getRandomInt(3)]
+            const newPoke = conterPopkes[0]?.pokemon[getRandomInt(conterPopkes[0]?.pokemon?.length)]
 
-            // const newPokeTeam = pokemons.filter(item => item?.name == newPoke?.pokemon?.name)
             const newPokeTeam = pokemons?.map(poke=>{
                 if(poke.name.toLowerCase() === newPoke.pokemon.name) return poke
             }).filter(item => item !== undefined)
-            console.log(newPokeTeam);
-            
-            // console.log(newPoke.pokemon.name);
-            // console.log('--newPoke: ', pokemons[getRandomInt(149)].name);
-            console.log('--newPoke: ', newPokeTeam);
 
-            console.log('---newTeam: ', newTeam);
-            console.log('---MyTeam: ', statsMyTeam.team);
-            // debugger
             newTeam.push(newPokeTeam)
-            // if(newPokeTeam) updateTeam(newPokeTeam)
-            updateTeam(newPokeTeam)
-            i= i+1
+
         }
-        // for (let index = 0; index < newTeam.length; index++) {
-        //     const typeDevil = statsMyTeam?.notStrongAgainst[0]?.damage_relations?.double_damage_from[index];
-        //     const conterPopkes = statsMyTeam?.allTypes?.filter(item => item?.name === typeDevil?.name)
-        //     const newPoke = conterPopkes[0]?.pokemon[0]
 
-        //     // const newPokeTeam = pokemons?.map(poke=>{
-        //     //     if(poke?.name?.toLowerCase() === newPoke?.pokemon?.name) return poke
-        //     // }).filter(item => item !== undefined)
+        console.log('________________');
+    console.log('TEAM: ', newTeam);
+    console.log('________________');
+        
+        for (let index = 0; index < newTeam.length; index++) {
+            const pokemon = newTeam[index];
+            const team = statsMyTeam?.team.length > 0 ? statsMyTeam?.team : newTeam
 
-        //     newTeam.push(newPoke)
-        // }
+            const isPokemonMyTeam = team.some(poke => poke[0].name === pokemon[0].name)
+
+            if(statsMyTeam?.team.length > 0){
+                if(!isPokemonMyTeam) updateTeam(pokemon)
+            }else{
+                if(isPokemonMyTeam) updateTeam(pokemon)
+            }
+        }
     
         return statsMyTeam?.team 
         

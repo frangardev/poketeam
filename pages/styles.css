@@ -3,3 +3,6 @@ body{
     background-color: #FFFDF7 !important;
     padding: 0 33px 33px;
 }
+/* html {
+    scroll-behavior: smooth;
+  } */

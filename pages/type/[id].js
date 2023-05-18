@@ -27,8 +27,10 @@ function TypesPage() {
     const [title, setTitle] = React.useState(typePokemons);
 
     useEffect(() => {
-        dispatch(fetchPokemonsWithDetails());
-        dispatch(fetchTypesWithDetails());
+        if (!(pokemons.length > 0)) {
+            dispatch(fetchPokemonsWithDetails());
+            dispatch(fetchTypesWithDetails());
+        }
     }, []);
 
     useEffect(() => {

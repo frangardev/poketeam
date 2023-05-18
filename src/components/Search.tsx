@@ -47,7 +47,7 @@ function Search() {
         borderRadius={"33px"}
         boxShadow={isActiveSearch ? "0px 4px 4px rgba(0, 0, 0, 0.08)" : "none"}
         zIndex={"200"}
-        w={"100%"}
+        w={"78%"}
         maxW={"1000px"}
       >
         <Flex

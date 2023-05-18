@@ -20,10 +20,10 @@ export const stastsType =(nameType, allTypes)=>{
   return stats.filter(item => item !== undefined)
 }
 
+
+
 // Retorna toda la informacion de nuestro equipo. 
-export const teamDetails = () =>{
-  const team = useSelector((state) => state.data.team, shallowEqual);
-  const allTypes = useSelector((state) => state.data.typesPokemon, shallowEqual);
+export const teamDetails = (team:any, allTypes:any) =>{
 
   // Obtiene los tipos de cada tipo
     const typesTeam = team?.map(poke =>{
