@@ -12,10 +12,12 @@ import Card from '../../src/components/Card';
 import { addIcon } from '../../src/components/BgCard';
 import Loader from '../../src/components/Loader';
 import Navbar from '../../src/components/Navbar';
+import Search from '../../src/components/Search';
 
 function TypesPage() {
     const pokemons = useSelector((state) => state.data.pokemons, shallowEqual)
     const loading = useSelector((state) => state.ui.loading)
+    const isNavSearch = useSelector((state) => state.ui.openModalSearchNav);
     const dispatch = useDispatch()
 
     const router = useRouter()
@@ -56,6 +58,7 @@ function TypesPage() {
             <Box position={'sticky'} top={'0'} zIndex={'100'}>
                 <Navbar />
             </Box>
+            {isNavSearch && <Search />}
             {typePokemons == 'all'
                 ? (<Text variant={'title'} textAlign={'center'} m={'48px 0'} fontSize={{ base: "33px", md: "40px", lg: "48px" }}>Pokemons</Text>)
                 : (

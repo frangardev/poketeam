@@ -26,7 +26,7 @@ function HeaderHome() {
       </Box>
       <Box
         position={"absolute"}
-        bottom={0}
+        bottom={"-55px"}
         left={"-35px"}
         h={{ base: "22%", md: "30%", lg: "35%" }}
         style={{ aspectRatio: "1/1" }}

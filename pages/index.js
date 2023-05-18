@@ -8,6 +8,7 @@ import SectionTypesPokemon from '../src/components/SectionTypesPokemon'
 import TeamContainer from '../src/components/TeamContainer'
 import Navbar from '../src/components/Navbar'
 import HeaderHome from '../src/components/HeaderHome'
+import ModalSearch from '../src/components/ModalSearch'
 
 function HomePage() {
 
@@ -34,6 +35,7 @@ function HomePage() {
         <TeamContainer />
         <SectionTypesPokemon />
       </Box>
+
     </React.Fragment>
   )
 }

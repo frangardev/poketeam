@@ -9,10 +9,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
+// import { Dispatch } from "redux";
 
-import ResultSearch from "./ResultSearch";
-import { setTeam } from "../../redux/slices/dataSlice";
+// import ResultSearch from "./ResultSearch";
+// import { setTeam } from "../../redux/slices/dataSlice";
+import ModalSearch from "./ModalSearch";
+import {
+  setOpenModalSearch,
+  setOpenModalSearchNav,
+} from "../../redux/slices/uiSlice";
 
 function Search() {
   const pokemons = useSelector(
@@ -20,12 +25,19 @@ function Search() {
     shallowEqual
   );
   const dispatch = useDispatch();
+  const isNavSearch = useSelector((state: any) => state.ui.openModalSearchNav);
+  const isActiveSearch = useSelector((state: any) => state.ui.openModalSearch);
 
   const [resutlsSearch, setResultsSearch] = React.useState([]);
-  const [isActiveSearch, setIsActiveSearch] = React.useState(false);
 
-  const updateFavorite = (newPoke: any) => {
-    dispatch(setTeam(newPoke));
+  const setIsActiveSearch = (isValue: boolean) => {
+    dispatch(setOpenModalSearch(isValue));
+  };
+
+  const closeSearch = (isClose: boolean) => {
+    dispatch(setOpenModalSearch(isClose));
+    dispatch(setOpenModalSearchNav(isClose));
+    setIsActiveSearch(isClose);
   };
 
   const searchPokemon = (searchValue) => {
@@ -41,14 +53,17 @@ function Search() {
   return (
     <>
       <Box
-        position={isActiveSearch ? "absolute" : "relative"}
+        position={
+          isNavSearch ? "fixed" : isActiveSearch ? "absolute" : "relative"
+        }
         bg={isActiveSearch ? "white" : "transparent"}
         p={isActiveSearch ? "20px 1em 49px" : "0"}
         borderRadius={"33px"}
         boxShadow={isActiveSearch ? "0px 4px 4px rgba(0, 0, 0, 0.08)" : "none"}
         zIndex={"200"}
-        w={"78%"}
+        w={{ base: "70%", lg: "100%" }}
         maxW={"1000px"}
+        top={isNavSearch && "20vh"}
       >
         <Flex
           alignItems={"center"}
@@ -99,7 +114,7 @@ function Search() {
               boxShadow={"none"}
               _hover={{ opacity: ".7" }}
               zIndex={"200"}
-              onClick={() => setIsActiveSearch(false)}
+              onClick={() => closeSearch(false)}
             >
               Cancelar
             </Button>
@@ -108,31 +123,17 @@ function Search() {
 
         {/* Results Search */}
         {isActiveSearch && (
-          <Flex
-            position={"relative"}
-            flexDirection={"column"}
-            w={"100%"}
-            zIndex={"300"}
-            maxH={"50vh"}
-            overflowY={"scroll"}
-          >
-            {resutlsSearch.map((poke: any) => (
-              <ResultSearch
-                key={poke.name}
-                namePokemon={poke?.name}
-                imagePokemon={poke?.sprites.front_default}
-                color={poke?.types[0].color}
-                action={() => updateFavorite([poke])}
-              />
-            ))}
-          </Flex>
+          <ModalSearch
+            resutlsSearch={resutlsSearch}
+            setIsActiveSearch={closeSearch}
+          />
         )}
       </Box>
 
       {/* Close search */}
       {isActiveSearch && (
         <Box
-          onClick={() => setIsActiveSearch(false)}
+          onClick={() => closeSearch(false)}
           position={"fixed"}
           w={"100vw"}
           h={"100vh"}
