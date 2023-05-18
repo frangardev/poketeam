@@ -1,0 +1,44 @@
+
+import React, { useEffect } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { fetchPokemonsWithDetails, fetchTypesWithDetails } from '../redux/slices/dataSlice'
+import { Box, Flex } from '@chakra-ui/layout'
+
+import SectionTypesPokemon from '../src/components/SectionTypesPokemon'
+import TeamContainer from '../src/components/TeamContainer'
+import Navbar from '../src/components/Navbar'
+import HeaderHome from '../src/components/HeaderHome'
+import ModalSearch from '../src/components/ModalSearch'
+
+function HomePage() {
+
+  const dispatch = useDispatch()
+  const pokemons = useSelector((state) => state.data.pokemons, shallowEqual)
+
+  useEffect(() => {
+    if (!(pokemons.length > 0)) {
+      dispatch(fetchPokemonsWithDetails());
+      dispatch(fetchTypesWithDetails());
+    }
+  }, []);
+
+
+  return (
+    <React.Fragment>
+      <Flex zIndex={'100'} position={'fixed'} left={'0'} w={'100%'} justifyContent={'center'}>
+        <Box maxW={"1000px"} w={'100%'} p={{ base: '42px 33px', lg: '33px 0' }}>
+          <Navbar home={true} />
+        </Box>
+      </Flex>
+      <HeaderHome />
+      <Box maxW={"1000px"} m={"0 auto"} w={'82%'} id='createTeam'>
+        <TeamContainer />
+        <SectionTypesPokemon />
+      </Box>
+
+    </React.Fragment>
+  )
+}
+
+
+export default HomePage;

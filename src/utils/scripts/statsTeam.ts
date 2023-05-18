@@ -4,15 +4,10 @@
 
 import { shallowEqual, useSelector } from "react-redux";
 
-const team = useSelector((state: any) =>
-state.getIn(["data", "team"], shallowEqual)
-).toJS();
-const allTypes = useSelector((state: any) =>
-state.getIn(["data", "types"], shallowEqual)
-).toJS();
+
 
 // Funcion que retorna los stats de cada tipo del team
-const stastsType =(nameType)=>{
+export const stastsType =(nameType, allTypes)=>{
   const stats = allTypes.map(type =>{
     if(type.name === nameType){
       return {
@@ -25,13 +20,17 @@ const stastsType =(nameType)=>{
   return stats.filter(item => item !== undefined)
 }
 
-export const teamDetails = () =>{
+
+
+// Retorna toda la informacion de nuestro equipo. 
+export const teamDetails = (team:any, allTypes:any) =>{
+
   // Obtiene los tipos de cada tipo
-    const typesTeam = team.map(poke =>{
-        return poke[0].types.map(typePoke => typePoke.type.name)
+    const typesTeam = team?.map(poke =>{
+        return poke[0]?.types?.map(typePoke => typePoke.type.name)
     }).flat(2)
 
-    const statsMyTeam= typesTeam.map(type => {return stastsType(type)}).flat(2)
+    const statsMyTeam= typesTeam.map(type => {return stastsType(type, allTypes)}).flat(2)
 
     // Los tipos a los que el equipo es fuerte
     const myTeamFueteContra = statsMyTeam.map(poke=>{
@@ -45,9 +44,11 @@ export const teamDetails = () =>{
     }).filter(item => item !== undefined)
 
     return {
-      team: statsMyTeam,
+      team: team,
+      statsMyTeam: statsMyTeam,
       typesTeam: typesTeam,
       notStrongAgainst: myTeamNotIsFuerteContra,
-      isStrongAgainst: myTeamFueteContra
+      isStrongAgainst: myTeamFueteContra,
+      allTypes: allTypes
     }
   }

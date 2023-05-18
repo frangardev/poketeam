@@ -1,22 +1,45 @@
 import React from "react";
 import { Grid, Flex, Heading, Button } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { teamDetails } from "../utils/scripts/statsTeam";
+import { completeTeam } from "../utils/scripts/completeTem";
+
+import GridContainerCards from "./GridContainerCards";
+import { setTeam } from "../../redux/slices/dataSlice";
+import StatsTeam from "./StatsTeam";
 
 function TeamContainer() {
   const [isATeam, setIsATeam] = React.useState(false);
-  const team = useSelector((state: any) =>
-    state.getIn(["data", "team"], shallowEqual)
-  ).toJS();
 
-  const allTeam = teamDetails();
-  console.log("Types my Team: ", allTeam);
+  const [cTeam, setCTeam] = React.useState({});
+  const team = useSelector((state: any) => state.data.team, shallowEqual);
+  const pokemons = useSelector(
+    (state: any) => state.data.pokemons,
+    shallowEqual
+  );
+  const allTypes = useSelector(
+    (state: any) => state.data.typesPokemon,
+    shallowEqual
+  );
+  const dispatch = useDispatch();
+
+  const updateTeam = (newPoke: any) => {
+    dispatch(setTeam(newPoke));
+  };
+
+  const allTeam = teamDetails(team, allTypes);
 
   React.useEffect(() => {
     if (team.length == 0) setIsATeam(false);
     else setIsATeam(true);
   }, [team]);
+
+  const createTeam = () => {
+    setCTeam(completeTeam(allTeam, pokemons, updateTeam, allTypes));
+    console.log("CompleteTeam: ", cTeam);
+  };
 
   return (
     <>
@@ -42,34 +65,36 @@ function TeamContainer() {
             mb={"80px"}
             w={"100%"}
           >
+            {/* <GridContainerCards> */}
             {team.map((pokemon, index) => {
               return <Card key={index} pokemon={pokemon[0]}></Card>;
             })}
+            {/* </GridContainerCards> */}
           </Grid>
-          {team.length < 6 && (
-            <Button
-              colorScheme="pink"
-              variant="solid"
-              size="lg"
-              mb={"100px"}
-              borderRadius={"33px"}
-              w={"auto"}
-            >
+          {team.length < 6 ? (
+            <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>
               Complete Team
             </Button>
+          ) : (
+            <StatsTeam stats={allTeam} />
           )}
         </Flex>
       ) : (
         <Flex justifyContent={"center"} alignItems={"center"}>
-          <Button
-            colorScheme="pink"
-            variant="solid"
-            size="lg"
-            mb={"100px"}
-            borderRadius={"33px"}
-          >
-            create random team
-          </Button>
+          {pokemons.length > 0 ? (
+            <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>
+              create random team
+            </Button>
+          ) : (
+            <Skeleton
+              startColor="colors.primary"
+              endColor="colors.red"
+              height="40px"
+              w={"175px"}
+              borderRadius={"33px"}
+              mb={"181px"}
+            />
+          )}
         </Flex>
       )}
     </>

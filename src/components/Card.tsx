@@ -1,27 +1,23 @@
 import React from "react";
 import { GridItem, Text, Image, Flex, Box } from "@chakra-ui/react";
 import axios from "axios";
-import { setFavorite, setTeam } from "../actions";
+
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Dispatch } from "redux";
 import PokeTypeTag from "./PokeTypeTag";
 import { Icon } from "@iconify/react";
 import BgCard from "./BgCard";
+import { setTeam } from "../../redux/slices/dataSlice";
+import { RootState } from "../../redux/store";
 
 function Card({ pokemon }) {
-  const dispatch = useDispatch<Dispatch<any>>();
-  const favorite = useSelector((state: any) =>
-    state.getIn(["data", "favorite"])
-  );
-  const team = useSelector((state: any) =>
-    state.getIn(["data", "team"], shallowEqual)
-  ).toJS();
+  // const dispatch = useDispatch<Dispatch<any>>();
+  const dispatch = useDispatch();
+  const team = useSelector((state: RootState) => state.data.team, shallowEqual);
 
   const [isFromTeam, setIsFromTeam] = React.useState(false);
   // let dispatch: Dispatch<any>;
 
-  const updateFavorite = (newPokemonFavorite: string, newPoke: any) => {
-    dispatch(setFavorite(newPokemonFavorite));
+  const updateFavorite = (newPoke: any) => {
     dispatch(setTeam(newPoke));
   };
 
@@ -36,7 +32,7 @@ function Card({ pokemon }) {
     <button
       key={pokemon?.name}
       onClick={() => {
-        updateFavorite(pokemon.name, [pokemon]);
+        updateFavorite([pokemon]);
       }}
     >
       <GridItem
@@ -46,12 +42,13 @@ function Card({ pokemon }) {
         flexDirection={"column"}
         alignItems={"center"}
         borderRadius={"1em"}
-        bg={pokemon.types[0].color}
+        bg={pokemon?.types[0]?.color}
         pb={"5%"}
+        minH={"100%"}
         overflow={"hidden"}
       >
         <Image
-          src={pokemon.sprites.front_default}
+          src={pokemon?.sprites?.front_default}
           alt={pokemon.name}
           w={"100%"}
           zIndex={"10"}
@@ -91,7 +88,9 @@ function Card({ pokemon }) {
             <Icon icon="gg:pokemon" width={"33px"} color="#545454" />
           </Box>
         )}
-        <BgCard type={pokemon.types[0].type.name} />
+        <Box opacity={"0.3"}>
+          <BgCard type={pokemon.types[0].type.name} />
+        </Box>
       </GridItem>
     </button>
   );

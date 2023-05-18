@@ -14,8 +14,16 @@ function ResultSearch({ namePokemon, imagePokemon, color, action }) {
         overflow={"hidden"}
         marginBottom={".5em"}
       >
-        <Image src={imagePokemon} alt={namePokemon} w={"96px"} />
-        <Text fontSize={"40px"} fontWeight={"300"} opacity={".7"}>
+        <Image
+          src={imagePokemon}
+          alt={namePokemon}
+          w={{ base: "68px", md: "78px", lg: "96px" }}
+        />
+        <Text
+          fontSize={{ base: "1.5rem", md: "2em", lg: "40px" }}
+          fontWeight={"300"}
+          opacity={".7"}
+        >
           {namePokemon}
         </Text>
       </Flex>

@@ -20,15 +20,16 @@ import Rock from "../assets/Rock.svg";
 import Steel from "../assets/Steel.svg";
 import Water from "../assets/Water.svg";
 
-function BgCard(type: string) {
+function BgCard(type) {
   const [imgTypePokemon, setimgTypePokemon] = React.useState();
 
   React.useEffect(() => {
     addIcon(type.type, setimgTypePokemon);
   }, []);
+
   return (
     <Image
-      src={imgTypePokemon}
+      src={imgTypePokemon?.src}
       position={"absolute"}
       w={"100%"}
       left={"22%"}
@@ -37,8 +38,14 @@ function BgCard(type: string) {
   );
 }
 
-export const addIcon = (type, setimgTypePokemon) => {
-  let bgColor = "#fff";
+/**
+ *
+ * @param type : name the type
+ * @param setimgTypePokemon : functions save image
+ * @returns
+ */
+export const addIcon = (type: string, setimgTypePokemon: any) => {
+  // let bgColor = "#fff";
   switch (type) {
     case "grass":
       setimgTypePokemon(Grass);
@@ -97,7 +104,7 @@ export const addIcon = (type, setimgTypePokemon) => {
     default:
       break;
   }
-  return bgColor;
+  // return bgColor;
 };
 
 export default BgCard;

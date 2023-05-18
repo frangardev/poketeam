@@ -13,7 +13,7 @@ import "./index.css";
 import rootReducer from "./reducers/RootReducer";
 
 // const composedEnhancers = compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(logger))
-const composeAlt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeAlt = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const composedEnhancers = composeAlt(applyMiddleware(thunk, logger, firstLetterToUppercase, addColorTypePokemon, deliteNotTypes))
 
 

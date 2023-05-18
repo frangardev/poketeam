@@ -1,10 +1,20 @@
 import React from "react";
 import { Box, keyframes, usePrefersReducedMotion } from "@chakra-ui/react";
+import Pokeball from "./Pokeball";
 // import logo from './logo.svg'
 
 const spin = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
 `;
 
 function Loader() {
@@ -13,41 +23,15 @@ function Loader() {
   const animation = prefersReducedMotion
     ? undefined
     : `${spin} infinite 2s linear`;
-  React.useEffect(() => {
-    console.log("Loading...");
-  }, []);
 
   return (
-    <Box
-      w={"5em"}
-      h={"5em"}
-      m={"10vh auto"}
-      bg={"white"}
-      borderRadius={"50%"}
-      overflow={"hidden"}
-      position={"relative"}
+    <Pokeball
       animation={animation}
-      border={"1px solid #3e3e3e"}
-    >
-      <Box
-        w={"100%"}
-        h={"50%"}
-        bgColor={"#E9989D"}
-        position={"absolute"}
-        top={"0"}
-        borderBottom={"1px solid #3e3e3e"}
-      ></Box>
-      <Box
-        w={"1em"}
-        h={"1em"}
-        bg={"white"}
-        borderRadius={"50%"}
-        position={"absolute"}
-        top={"40%"}
-        left={"40%"}
-        border={"1px solid #3e3e3e"}
-      ></Box>
-    </Box>
+      color={"#FDD1B4"}
+      width={"5em"}
+      colorCenter={"#FDD1B4"}
+      cutomMargin={"10vh auto"}
+    />
   );
 }
 

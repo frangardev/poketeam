@@ -9,22 +9,35 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
-import { setTeam } from "../actions";
-import ResultSearch from "./ResultSearch";
+// import { Dispatch } from "redux";
 
-function Seach() {
-  const dispatch = useDispatch<Dispatch<any>>();
-  const pokemons = useSelector((state: any) =>
-    state.getIn(["data", "pokemons"], shallowEqual)
-  ).toJS();
+// import ResultSearch from "./ResultSearch";
+// import { setTeam } from "../../redux/slices/dataSlice";
+import ModalSearch from "./ModalSearch";
+import {
+  setOpenModalSearch,
+  setOpenModalSearchNav,
+} from "../../redux/slices/uiSlice";
+
+function Search() {
+  const pokemons = useSelector(
+    (state: any) => state.data.pokemons,
+    shallowEqual
+  );
+  const dispatch = useDispatch();
+  const isNavSearch = useSelector((state: any) => state.ui.openModalSearchNav);
+  const isActiveSearch = useSelector((state: any) => state.ui.openModalSearch);
 
   const [resutlsSearch, setResultsSearch] = React.useState([]);
-  const [isActiveSearch, setIsActiveSearch] = React.useState(false);
 
-  const updateFavorite = (newPokemonFavorite: any) => {
-    dispatch(setTeam(newPokemonFavorite));
-    setIsActiveSearch(false);
+  const setIsActiveSearch = (isValue: boolean) => {
+    dispatch(setOpenModalSearch(isValue));
+  };
+
+  const closeSearch = (isClose: boolean) => {
+    dispatch(setOpenModalSearch(isClose));
+    dispatch(setOpenModalSearchNav(isClose));
+    setIsActiveSearch(isClose);
   };
 
   const searchPokemon = (searchValue) => {
@@ -40,11 +53,17 @@ function Seach() {
   return (
     <>
       <Box
-        position={"relative"}
+        position={
+          isNavSearch ? "fixed" : isActiveSearch ? "absolute" : "relative"
+        }
         bg={isActiveSearch ? "white" : "transparent"}
         p={isActiveSearch ? "20px 1em 49px" : "0"}
         borderRadius={"33px"}
         boxShadow={isActiveSearch ? "0px 4px 4px rgba(0, 0, 0, 0.08)" : "none"}
+        zIndex={"200"}
+        w={{ base: "70%", lg: "100%" }}
+        maxW={"1000px"}
+        top={isNavSearch && "20vh"}
       >
         <Flex
           alignItems={"center"}
@@ -54,18 +73,20 @@ function Seach() {
           zIndex={"200"}
         >
           <InputGroup
-            bg={"#F6F6F6"}
+            bg={"colors.while"}
             borderRadius={"58px"}
             overflow={"hidden"}
+            alignItems={"center"}
+            justifyContent={"center"}
             onClick={() => setIsActiveSearch(true)}
           >
             <InputLeftAddon
-              bg={"#F6F6F6"}
+              bg={"colors.while"}
               border={"none"}
-              p={"12px 34px"}
+              p={"10px 19px 10px 21px "}
               h={"100%"}
               children={
-                <Icon icon="ri:search-line" width={"58px"} color="#545454" />
+                <Icon icon="ri:search-line" width={"30px"} color="#545454" />
               }
             />
             <Input
@@ -74,11 +95,11 @@ function Seach() {
               _placeholder={{
                 opacity: 0.6,
                 color: "#545454",
-                fontSize: "40px",
+                fontSize: "1.25rem",
                 fontWeight: "300",
               }}
               border={"none"}
-              fontSize={"40px"}
+              fontSize={"1.25rem"}
               p={"1em 0"}
               onChange={(e) => searchPokemon(e.target.value)}
             />
@@ -86,12 +107,14 @@ function Seach() {
           {isActiveSearch && (
             <Button
               bgColor={"transparent"}
-              fontSize={"40px"}
+              fontSize={"1.25rem"}
               fontWeight={"300"}
               opacity={".5"}
               cursor={"pointer"}
+              boxShadow={"none"}
               _hover={{ opacity: ".7" }}
-              onClick={() => setIsActiveSearch(false)}
+              zIndex={"200"}
+              onClick={() => closeSearch(false)}
             >
               Cancelar
             </Button>
@@ -100,44 +123,27 @@ function Seach() {
 
         {/* Results Search */}
         {isActiveSearch && (
-          <Flex
-            // position={"absolute"}
-            position={"relative"}
-            // left={"0"}
-            // top={"100px"}
-            flexDirection={"column"}
-            w={"100%"}
-            zIndex={"300"}
-            maxH={"50vh"}
-            overflowY={"scroll"}
-          >
-            {resutlsSearch.map((poke) => (
-              // <Text>{poke.name}</Text>
-              <ResultSearch
-                key={poke.name}
-                namePokemon={poke?.name}
-                imagePokemon={poke?.sprites.front_default}
-                color={poke?.types[0].color}
-                action={() => updateFavorite(poke)}
-              />
-            ))}
-          </Flex>
+          <ModalSearch
+            resutlsSearch={resutlsSearch}
+            setIsActiveSearch={closeSearch}
+          />
         )}
       </Box>
 
       {/* Close search */}
       {isActiveSearch && (
         <Box
-          onClick={() => setIsActiveSearch(false)}
+          onClick={() => closeSearch(false)}
           position={"fixed"}
           w={"100vw"}
           h={"100vh"}
           top={"0"}
           left={"0"}
           zIndex={"100"}
+          bgColor={"blackAlpha.100"}
         ></Box>
       )}
     </>
   );
 }
-export default Seach;
+export default Search;
