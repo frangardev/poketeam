@@ -10,12 +10,10 @@ import { setTeam } from "../../redux/slices/dataSlice";
 import { RootState } from "../../redux/store";
 
 function Card({ pokemon }) {
-  // const dispatch = useDispatch<Dispatch<any>>();
   const dispatch = useDispatch();
   const team = useSelector((state: RootState) => state.data.team, shallowEqual);
 
   const [isFromTeam, setIsFromTeam] = React.useState(false);
-  // let dispatch: Dispatch<any>;
 
   const updateFavorite = (newPoke: any) => {
     dispatch(setTeam(newPoke));

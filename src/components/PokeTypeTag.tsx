@@ -8,7 +8,6 @@ function PokeTypeTag({ type, color }) {
       color={"#4D4D4D"}
       borderRadius={"33px"}
       p={"4px 14px"}
-      // border={"1px solid black"}
       boxShadow={"0px 0px 8px rgba(0, 0, 0, 0.08)"}
     >
       {type}

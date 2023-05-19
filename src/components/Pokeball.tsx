@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  keyframes,
-  usePrefersReducedMotion,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 function Pokeball({ animation, width, color, colorCenter, cutomMargin }) {
   return (
@@ -17,7 +12,6 @@ function Pokeball({ animation, width, color, colorCenter, cutomMargin }) {
       overflow={"hidden"}
       position={"relative"}
       animation={animation}
-      // border={"1px solid #3e3e3e"}
     >
       <Box
         w={"100%"}

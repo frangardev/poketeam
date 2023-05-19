@@ -11,9 +11,6 @@ import StatsAttackDefense from "./StatsAttackDefense";
 
 function StatsTeam({ stats }) {
   const [isViewAttack, setIsViewAttack] = React.useState(true);
-  console.log("_______stats_______");
-  console.log(stats);
-  console.log("______________");
 
   const notStrong = stats.allTypes
     .map((type) => {

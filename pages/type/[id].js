@@ -60,7 +60,7 @@ function TypesPage() {
             </Box>
             {isNavSearch && <Search />}
             {typePokemons == 'all'
-                ? (<Text variant={'title'} textAlign={'center'} m={'48px 0'} fontSize={{ base: "33px", md: "40px", lg: "48px" }}>Pokemons</Text>)
+                ? (<Text variant={'title'} textAlign={'center'} m={'48px 0'} fontSize={{ base: "33px", md: "40px", lg: "48px" }}>Pokémons</Text>)
                 : (
                     <Flex w={'100%'} justifyContent={'center'} alignItems={'center'} gap={'.5em'} mb={'48px'}>
                         <Image src={imgTypePokemon?.src} w={{ base: '48px', md: '52px', lg: "64px" }} />

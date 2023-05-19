@@ -1,7 +1,6 @@
 import React from "react";
-import { Box, keyframes, usePrefersReducedMotion } from "@chakra-ui/react";
+import { keyframes, usePrefersReducedMotion } from "@chakra-ui/react";
 import Pokeball from "./Pokeball";
-// import logo from './logo.svg'
 
 const spin = keyframes`
   0% {

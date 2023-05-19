@@ -1,20 +1,9 @@
-// export const logger = (store: any) => {   // store de la aplicación
-//     return (next: any) => {          // next es una función que se llama cuando el middleware termina su trabajo y envía el action al reducer
-//       return (action: any) => {      // action es la información que se pasa al reducer
-//         console.log(action);
-//         next(action); // <-- hace que el action llegue al reducer
-//       } 
-//     }
-//   };
-
-// import { getTypesWithDetails } from "../actions";
-// import { SET_POKEMON, SET_TYPES } from "../actions/types";
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
 
 export const firstLetterToUppercase = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
   if (action.type == 'data/setPokemons') {
-    console.log('Is action: ', action);
+    // console.log('Is action: ', action);
     
     const updateNamePokemon = action?.payload?.map((pokemon:any)=>{
         const nameUpperCase = pokemon?.name?.charAt(0).toUpperCase()+pokemon.name.slice(1)
@@ -31,7 +20,7 @@ export const firstLetterToUppercase = (_: MiddlewareAPI) => (next: Dispatch) => 
     
     next(newAction)
   }else{
-    console.log('Is NOT action: ', action);
+    // console.log('Is NOT action: ', action);
     next(action)
   }
 }

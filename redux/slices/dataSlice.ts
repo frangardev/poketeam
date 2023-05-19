@@ -69,6 +69,6 @@ export const dataSlice = createSlice({
 });
 
 export const { setTeam, setPokemons, setTypes } = dataSlice.actions;
-console.log('🚀 ~ file: dataSlice.js ~ line 29 ~ dataSlice', dataSlice);
+// console.log('🚀 ~ file: dataSlice.js ~ line 29 ~ dataSlice', dataSlice);
 
 export default dataSlice.reducer;

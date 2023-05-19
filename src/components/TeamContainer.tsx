@@ -5,8 +5,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { teamDetails } from "../utils/scripts/statsTeam";
 import { completeTeam } from "../utils/scripts/completeTem";
-
-import GridContainerCards from "./GridContainerCards";
 import { setTeam } from "../../redux/slices/dataSlice";
 import StatsTeam from "./StatsTeam";
 
@@ -38,7 +36,6 @@ function TeamContainer() {
 
   const createTeam = () => {
     setCTeam(completeTeam(allTeam, pokemons, updateTeam, allTypes));
-    console.log("CompleteTeam: ", cTeam);
   };
 
   return (
@@ -50,7 +47,7 @@ function TeamContainer() {
         mb={"60px"}
         textAlign={"center"}
       >
-        Your pokemon team
+        Your Pokémon team
       </Heading>
       {isATeam ? (
         <Flex
@@ -65,11 +62,9 @@ function TeamContainer() {
             mb={"80px"}
             w={"100%"}
           >
-            {/* <GridContainerCards> */}
             {team.map((pokemon, index) => {
               return <Card key={index} pokemon={pokemon[0]}></Card>;
             })}
-            {/* </GridContainerCards> */}
           </Grid>
           {team.length < 6 ? (
             <Button variant="primary" mb={"181px"} onClick={() => createTeam()}>

@@ -17,7 +17,6 @@ function MiniCardType({ type }) {
         alignItems={"center"}
         gap={"12px"}
         borderRadius={"33px"}
-        //   m={"0 auto"}
       >
         <Image src={imgTypePokemon?.src} h={"100%"} />
         <Text fontSize={"20px"} fontWeight={"300"} color={"#575862"}>

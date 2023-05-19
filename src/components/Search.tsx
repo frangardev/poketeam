@@ -8,16 +8,12 @@ import {
   InputLeftAddon,
   Button,
 } from "@chakra-ui/react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-// import { Dispatch } from "redux";
-
-// import ResultSearch from "./ResultSearch";
-// import { setTeam } from "../../redux/slices/dataSlice";
-import ModalSearch from "./ModalSearch";
 import {
   setOpenModalSearch,
   setOpenModalSearchNav,
 } from "../../redux/slices/uiSlice";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import ModalSearch from "./ModalSearch";
 
 function Search() {
   const pokemons = useSelector(

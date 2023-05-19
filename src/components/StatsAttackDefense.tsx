@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
-import { log } from "console";
 import StatsIcon from "./StatsIcon";
 
 function StatsAttackDefense({
@@ -14,7 +13,6 @@ function StatsAttackDefense({
     (state: any) => state.data.typesPokemon,
     shallowEqual
   );
-  // const rta = numbers.some(item => item % 2 === 0)
   const notStrong = types.map((type) => {
     const isNotStrong = defense.some((item) => item.name == type.name);
     return {
@@ -29,9 +27,6 @@ function StatsAttackDefense({
       isStrong: !isNotStrong,
     };
   });
-
-  console.log("notStrong ", notStrong);
-  console.log("strong ", strong);
 
   return (
     <Box p={"0 34px"}>
@@ -54,13 +49,6 @@ function StatsAttackDefense({
         </Button>
       </Flex>
       <Grid templateColumns="repeat(auto-fill, minmax(2em, 1fr))" gap={"7px"}>
-        {/* {isViewAttack
-          ? notStrong?.map((type) => {
-              return <Text>{type.name}</Text>;
-            })
-          : defense?.map((type) => {
-              return <Text>{type.name}</Text>;
-            })} */}
         {notStrong.map((type) => {
           return (
             <StatsIcon

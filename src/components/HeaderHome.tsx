@@ -3,7 +3,6 @@ import { Button, Text, Image, Flex, Box } from "@chakra-ui/react";
 import Pokeball from "./Pokeball";
 import Logo from "./Logo";
 import Link from "next/link";
-// import { Link } from 'react-scroll'
 
 function HeaderHome() {
   return (
@@ -76,11 +75,9 @@ function HeaderHome() {
       >
         <Logo header />
         <Flex gap={"12px"}>
-          {/* <ScrollLink to="createTeam" smooth={true} duration={800}> */}
           <Link href={"#createTeam"}>
             <Button variant={"primary"}>Create Team</Button>
           </Link>
-          {/* </ScrollLink> */}
 
           <Link href={`/type/all`}>
             <Button variant={"secondary"}>all pokemons</Button>
